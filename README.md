@@ -1,5 +1,9 @@
 # EmDrive
 3D Simulation of the EmDrive
+<br />
 https://abigger87.github.io/EmDrive/index.html
+<br />
 Based on the dimensions given in the jpg file labeled EmdriveDimensions.jpg
-Modeled in Tinkercad - file format as Collada
+<br />
+Modeled in Tinkercad - Convert file format from STL to Collada using www.greentoken.de/onlineconv/
+<br />

@@ -1,15 +1,5 @@
 /**
- * Random Walk Simulation (Solar Photon) - Three.js
- *
- * This class implements the random walk simulation for a solar photon
- * that starts from the center of the sun and is randomly rambling until
- * it reaches the surface.
- *
- * Based the academic project of Drew Onken 
- * http://www.opensourcephysics.org/items/detail.cfm?ID=11349
- * 
- * @license GPLv3
- * @author Alex Tselegidis - Oct 2014
+ * Random Walk Simulation (Photon) - Three.js
  * @requires three.js and OrbitControls.js
  */
 function RWS() {

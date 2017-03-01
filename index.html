@@ -6,8 +6,8 @@
 			canvas { width: 100%; height: 100%; }
 		</style>
 	</head>
-	<body> <!--onload="var rws = new RWS(); rws.initialize();"-->
-		<button onclick="var rws = new RWS(); rws.initialize(); rws.displayStats()">Start</button>
+	<body onload="var rws = new RWS();"> <!--onload="var rws = new RWS(); rws.initialize();"-->
+		<button onclick="rws.initialize(); rws.displayStats()">Start</button>
 		<button onclick="rws.stop();">Stop</button>
 		<!-- three.js CDN: http://cdnjs.cloudflare.com/ajax/libs/three.js/r68/three.min.js -->
 		<script type="text/javascript" src="three.js"></script>

@@ -223,6 +223,11 @@ function RWS() {
         document.body.appendChild(div);
     };
 
+    /**
+     * Update Simulation Statistics
+     *
+     * This method is called when the simulation renders and it displays the simulation statistics
+     */
     inst.updateStats() = function() {
         var html = 
             '<strong>Simulation Results</strong><br>' +
@@ -231,6 +236,7 @@ function RWS() {
             'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(SUN_RADIUS, 2)) + ' Years';
         document.getElementById("div").innerHTML = html;
     };
+    
     /**
      * Display Viewport Hint
      */

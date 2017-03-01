@@ -92,7 +92,7 @@ function RWS() {
         requestAnimationFrame(inst.render);
         if (inst.simulation.isActive)
             inst.processSimulation();
-            inst.displayStats();
+            inst.updateStats();
         inst.renderer.render(inst.scene, inst.camera);
     };
     
@@ -210,7 +210,6 @@ function RWS() {
             'Total Steps: ' + inst.simulation.steps + '<br>' +
             'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(SUN_RADIUS, 2)) + ' Years';
 
-        document.getElementById("div").innerHTML = "";
         var div = document.createElement('div');
         div.style.position = 'absolute';
         div.style.minWidth = '286px';
@@ -224,6 +223,14 @@ function RWS() {
         document.body.appendChild(div);
     };
 
+    inst.updateStats() = function() {
+        var html = 
+            '<strong>Simulation Results</strong><br>' +
+            'Duration: ' + Number(inst.simulation.endTime - inst.simulation.startTime).toFixed(2) + 's<br>' +
+            'Total Steps: ' + inst.simulation.steps + '<br>' +
+            'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(SUN_RADIUS, 2)) + ' Years';
+        document.getElementById("div").innerHTML = html;
+    };
     /**
      * Display Viewport Hint
      */

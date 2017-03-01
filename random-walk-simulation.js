@@ -210,7 +210,7 @@ function RWS() {
             'Total Steps: ' + inst.simulation.steps + '<br>' +
             'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(SUN_RADIUS, 2)) + ' Years';
 
-
+        document.getElementById("div").innerHTML = "";
         var div = document.createElement('div');
         div.style.position = 'absolute';
         div.style.minWidth = '286px';

@@ -4,7 +4,7 @@
  */
 window.onload = function() {
     var rws = new RWS();
-}
+};
 
 function RWS() {
     // members

@@ -211,14 +211,6 @@ function RWS() {
             'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(SUN_RADIUS, 2)) + ' Years';
 
         var div = document.createElement('div');
-        div.style.position = 'absolute';
-        div.style.width = '286px';
-        div.style.bottom = '10px';
-        div.style.left = '10px';
-        div.style.padding = '20px';
-        div.style.color = '#FFF';
-        div.style.font = '16px arial, helvetica';
-        div.style.lineHeight = '1.4';
         div.innerHTML = html;
         document.getElementById('statistics').appendChild(div);
     };

@@ -92,6 +92,7 @@ function RWS() {
         requestAnimationFrame(inst.render);
         if (inst.simulation.isActive)
             inst.processSimulation();
+            inst.displayStats();
         inst.renderer.render(inst.scene, inst.camera);
     };
     

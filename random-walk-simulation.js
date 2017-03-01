@@ -2,6 +2,10 @@
  * Random Walk Simulation (Photon) - Three.js
  * @requires three.js and OrbitControls.js
  */
+window.onload = function() {
+    var rws = new RWS();
+}
+
 function RWS() {
     // members
     var inst = this;

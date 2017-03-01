@@ -212,7 +212,7 @@ function RWS() {
 
         var div = document.createElement('div');
         div.style.position = 'absolute';
-        div.style.minWidth = '286px';
+        div.style.width = '286px';
         div.style.bottom = '10px';
         div.style.left = '10px';
         div.style.padding = '20px';

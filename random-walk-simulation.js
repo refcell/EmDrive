@@ -94,13 +94,21 @@ function RWS() {
             inst.processSimulation();
         inst.renderer.render(inst.scene, inst.camera);
     };
+    
     /**
-     * Stop Simulation
+     * Pause Simulation
      */
-    inst.stop = function() {
+    inst.pause = function() {
         inst.simulation.isActive = false;
     };
 
+    /**
+     * Resume Simulation
+     */
+    inst.resume = function() {
+        inst.simulation.isActive = true;
+    };
+    
     /**
      * Bind Simulation Events
      */

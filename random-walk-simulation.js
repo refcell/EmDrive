@@ -228,7 +228,7 @@ function RWS() {
      *
      * This method is called when the simulation renders and it displays the simulation statistics
      */
-    inst.updateStats() = function() {
+    inst.updateStats = function() {
         var html = 
             '<strong>Simulation Results</strong><br>' +
             'Duration: ' + Number(inst.simulation.endTime - inst.simulation.startTime).toFixed(2) + 's<br>' +

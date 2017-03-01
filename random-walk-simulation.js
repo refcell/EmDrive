@@ -90,6 +90,12 @@ function RWS() {
             inst.processSimulation();
         inst.renderer.render(inst.scene, inst.camera);
     };
+    /**
+     * Stop Simulation
+     */
+    inst.stop = function() {
+        inst.simulation.isActive = false;
+    };
 
     /**
      * Bind Simulation Events

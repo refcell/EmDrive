@@ -213,10 +213,10 @@ function RWS() {
         var div = document.createElement('div');
         div.style.position = 'absolute';
         div.style.minWidth = '286px';
-        div.style.top = '10px';
+        div.style.bottom = '10px';
         div.style.left = '10px';
         div.style.padding = '20px';
-        div.style.backgroundColor = '#FFF';
+        div.style.color = '#FFF';
         div.style.font = '16px arial, helvetica';
         div.style.lineHeight = '1.4';
         div.innerHTML = html;

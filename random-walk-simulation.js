@@ -220,7 +220,7 @@ function RWS() {
         div.style.font = '16px arial, helvetica';
         div.style.lineHeight = '1.4';
         div.innerHTML = html;
-        document.body.appendChild(div);
+        document.getElementById('statistics').appendChild(div);
     };
 
     /**
@@ -234,7 +234,7 @@ function RWS() {
             'Duration: ' + Number(inst.simulation.endTime - inst.simulation.startTime).toFixed(2) + 's<br>' +
             'Total Steps: ' + inst.simulation.steps + '<br>' +
             'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(SUN_RADIUS, 2)) + ' Years';
-        document.getElementById('div').innerHTML = html;
+        document.getElementById('statistics').innerHTML = html;
     };
     
     /**

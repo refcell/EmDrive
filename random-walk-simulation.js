@@ -44,7 +44,6 @@ function RWS() {
         inst.simulation.startTime = new Date().getTime() / 1000;
         inst.simulation.l = 1 / (SUN_OPACITY * SUN_DENSITY);
         inst.initMesh();
-        inst.bindEvents();
         inst.displayHint();
         if (autostart || typeof autostart == 'undefined') inst.render();
     };

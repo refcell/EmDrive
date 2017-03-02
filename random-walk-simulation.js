@@ -87,7 +87,7 @@ function RWS() {
 
             // if the star is very close to the sun it will 
             // not be added to the scene
-            if (inst.calc3dDistance(star) >= STAR_MIN_DISTANCE)
+            if (inst.calc3dDistance(star) >= 0)
                 inst.scene.add(star);
         }
     }

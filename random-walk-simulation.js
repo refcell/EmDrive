@@ -38,6 +38,8 @@ function RWS() {
         // initialize mesh and render
         inst.loader = new THREE.ColladaLoader();
         inst.loader.load( 'EmDriveModel.dae', function ( collada ) { dae = collada.scene; dae.scale.x = dae.scale.y = dae.scale.z = 25.0; inst.animate(); });
+        inst.scene.add(dae);
+        
         inst.simulation = new Object();
         inst.simulation.isActive = true;
         inst.simulation.steps = 0;
@@ -67,7 +69,6 @@ function RWS() {
         *inst.scene.add(inst.mesh.sun);
         */
         
-        inst.scene.add(dae);
         // photon
         var gPhoton = new THREE.SphereGeometry(5, 8, 6);
         var mPhoton = new THREE.MeshBasicMaterial({ color: 0x2E66FF });

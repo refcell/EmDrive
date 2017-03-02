@@ -2,27 +2,25 @@
  * Random Walk Simulation (Photon) - Three.js
  * @requires three.js and OrbitControls.js
  */
-window.onload = function() {
-    var rws = new RWS();
-};
-
 function RWS() {
     // members
     var inst = this;
+    var camera, scene, renderer;
+    var dae;
+    var loader = new THREE.ColladaLoader();
     inst.scene;
     inst.camera;
     inst.controls;
     inst.renderer;
     inst.mesh;
     inst.simulation;
-
+    loader.load( 'EmDriveModel.dae', function ( collada ) { dae = collada.scene; dae.scale.x = dae.scale.y = dae.scale.z = 25.0; animate(); });
+    
     // constants
-    var ROTATION_SPEED = 0.01;
     var STAR_COUNT = 1000;
-    var STAR_MIN_DISTANCE = 3000;
+    var EMDRIVEMINDISTANCE = 3000;
     var SUN_OPACITY = 8;
     var SUN_DENSITY = 1408;
-    var SUN_RADIUS = 0.005;
     var SPEED_OF_LIGHT = 2.99 * Math.pow(10, 8);
     var SCALE_FACTOR = 100000;
 
@@ -50,18 +48,26 @@ function RWS() {
         if (autostart || typeof autostart == 'undefined') inst.render();
     };
 
+    function animate() {
+        // Defined in the RequestAnimationFrame.js file, this function
+        // means that the animate function is called upon timeout:
+        requestAnimationFrame(animate);
+        inst.render();
+    }
     /**
      * Initialize Mesh Objects 
      */
     inst.initMesh = function() {
         inst.mesh = new Object(); 
 
-        // sun
-        var gSun = new THREE.SphereGeometry(SUN_RADIUS * SCALE_FACTOR, 26, 26);
-        var mSun = new THREE.MeshBasicMaterial({ color: 0xFFFF2E, wireframe: true, opacity: 0.1, transparent: true });
-        inst.mesh.sun = new THREE.Mesh(gSun, mSun);
-        inst.scene.add(inst.mesh.sun);
-
+        /* sun
+        *var gSun = new THREE.SphereGeometry(SUN_RADIUS * SCALE_FACTOR, 26, 26);
+        *var mSun = new THREE.MeshBasicMaterial({ color: 0xFFFF2E, wireframe: true, opacity: 0.1, transparent: true });
+        *inst.mesh.sun = new THREE.Mesh(gSun, mSun);
+        *inst.scene.add(inst.mesh.sun);
+        */
+        
+        inst.scene.add(dae);
         // photon
         var gPhoton = new THREE.SphereGeometry(5, 8, 6);
         var mPhoton = new THREE.MeshBasicMaterial({ color: 0x2E66FF });
@@ -86,42 +92,9 @@ function RWS() {
     }
 
     /**
-     * Render Loop
-     */
-    inst.render = function() {
-        requestAnimationFrame(inst.render);
-        if (inst.simulation.isActive)
-            inst.processSimulation();
-            inst.updateStats();
-        inst.renderer.render(inst.scene, inst.camera);
-    };
-    
-    /**
-     * Pause Simulation
-     */
-    inst.pause = function() {
-        inst.simulation.isActive = false;
-    };
-
-    /**
-     * Resume Simulation
-     */
-    inst.resume = function() {
-        inst.simulation.isActive = true;
-    };
-    
-    /**
-     * Bind Simulation Events
-     */
-    inst.bindEvents = function() {
-        // no specific events at the moment
-    };
-
-    /**
      * Process Simulation Frame
      *
-     * This method proceeds one step of the simulation (60 steps will
-     * make 1 second on scene).
+     * This method proceeds one step of the simulation (60 steps will make 1 second on scene).
      */
     inst.processSimulation = function() {
         inst.simulation.steps++
@@ -195,7 +168,36 @@ function RWS() {
         var line = new THREE.Line(gLine, mLine);
         inst.scene.add(line);
     };
+   
+  //-----------------------------Loop Program------------------------------------
+    
+     /**
+     * Render Loop
+     */
+    inst.render = function() {
+        requestAnimationFrame(inst.render);
+        if (inst.simulation.isActive)
+            inst.processSimulation();
+            inst.updateStats();
+        inst.renderer.render(inst.scene, inst.camera);
+    };
+    
+    /**
+     * Pause Simulation
+     */
+    inst.pause = function() {
+        inst.simulation.isActive = false;
+    };
 
+    /**
+     * Resume Simulation
+     */
+    inst.resume = function() {
+        inst.simulation.isActive = true;
+    };
+    
+  //-----------------------------Data Section------------------------------------  
+    
     /**
      * Display Simulation Statistics
      *
@@ -214,7 +216,7 @@ function RWS() {
         div.innerHTML = html;
         document.getElementById('statistics').appendChild(div);
     };
-
+    
     /**
      * Update Simulation Statistics
      *

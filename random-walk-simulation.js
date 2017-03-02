@@ -7,14 +7,13 @@ function RWS() {
     var inst = this;
     var camera, scene, renderer;
     var dae;
-    var loader = new THREE.ColladaLoader();
+    inst.loader;
     inst.scene;
     inst.camera;
     inst.controls;
     inst.renderer;
     inst.mesh;
     inst.simulation;
-    loader.load( 'EmDriveModel.dae', function ( collada ) { dae = collada.scene; dae.scale.x = dae.scale.y = dae.scale.z = 25.0; animate(); });
     
     // constants
     var STAR_COUNT = 1000;
@@ -37,6 +36,8 @@ function RWS() {
         inst.controls.damping = 0.2;
 
         // initialize mesh and render
+        inst.loader = new THREE.ColladaLoader();
+        loader.load( 'EmDriveModel.dae', function ( collada ) { dae = collada.scene; dae.scale.x = dae.scale.y = dae.scale.z = 25.0; inst.animate(); });
         inst.simulation = new Object();
         inst.simulation.isActive = true;
         inst.simulation.steps = 0;
@@ -48,7 +49,7 @@ function RWS() {
         if (autostart || typeof autostart == 'undefined') inst.render();
     };
 
-    function animate() {
+    inst.animate = function() {
         // Defined in the RequestAnimationFrame.js file, this function
         // means that the animate function is called upon timeout:
         requestAnimationFrame(animate);

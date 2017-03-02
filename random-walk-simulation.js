@@ -111,7 +111,7 @@ function RWS() {
         inst.createLine(oldVector, newVector);
 
         dist = inst.calc3dDistance(inst.mesh.photon);
-        if (dist > inst.mesh.sun.geometry.parameters.radius) {
+        if (dist > 0) {
             console.log('Simulation Ended'); // stop simulation and print data
             inst.simulation.isActive = false;
             inst.simulation.endTime = new Date().getTime() / 1000;

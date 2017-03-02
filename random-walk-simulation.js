@@ -210,7 +210,7 @@ function RWS() {
             '<strong>Simulation Results</strong><br>' +
             'Duration: ' + Number(inst.simulation.endTime - inst.simulation.startTime).toFixed(2) + 's<br>' +
             'Total Steps: ' + inst.simulation.steps + '<br>' +
-            'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(SUN_RADIUS, 2)) + ' Years';
+            'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(0, 2)) + ' Years';
 
         var div = document.createElement('div');
         div.innerHTML = html;
@@ -227,7 +227,7 @@ function RWS() {
             '<strong>Simulation Results</strong><br>' +
             'Duration: ' + Number(inst.simulation.endTime - inst.simulation.startTime).toFixed(2) + 's<br>' +
             'Total Steps: ' + inst.simulation.steps + '<br>' +
-            'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(SUN_RADIUS, 2)) + ' Years';
+            'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(0, 2)) + ' Years';
         document.getElementById('statistics').innerHTML = html;
     };
     

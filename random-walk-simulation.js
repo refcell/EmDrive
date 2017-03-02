@@ -37,7 +37,7 @@ function RWS() {
 
         // initialize mesh and render
         inst.loader = new THREE.ColladaLoader();
-        loader.load( 'EmDriveModel.dae', function ( collada ) { dae = collada.scene; dae.scale.x = dae.scale.y = dae.scale.z = 25.0; inst.animate(); });
+        inst.loader.load( 'EmDriveModel.dae', function ( collada ) { dae = collada.scene; dae.scale.x = dae.scale.y = dae.scale.z = 25.0; inst.animate(); });
         inst.simulation = new Object();
         inst.simulation.isActive = true;
         inst.simulation.steps = 0;

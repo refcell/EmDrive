@@ -6,7 +6,7 @@ function RWS() {
     // members
     var inst = this;
     var camera, scene, renderer;
-    var dae;
+    inst.dae;
     inst.loader;
     inst.scene;
     inst.camera;
@@ -37,8 +37,7 @@ function RWS() {
 
         // initialize mesh and render
         inst.loader = new THREE.ColladaLoader();
-        inst.loader.load( 'EmDriveModel.dae', function ( collada ) { dae = collada.scene; dae.scale.x = dae.scale.y = dae.scale.z = 25.0; inst.animate(); });
-        inst.scene.add(dae);
+        inst.loader.load( 'EmDriveModel.dae', function ( collada ) { inst.dae = collada.scene; inst.dae.scale.x = inst.dae.scale.y = inst.dae.scale.z = 25.0; inst.animate(); });
         
         inst.simulation = new Object();
         inst.simulation.isActive = true;
@@ -68,6 +67,7 @@ function RWS() {
         *inst.mesh.sun = new THREE.Mesh(gSun, mSun);
         *inst.scene.add(inst.mesh.sun);
         */
+        inst.scene.add(inst.dae);
         
         // photon
         var gPhoton = new THREE.SphereGeometry(5, 8, 6);

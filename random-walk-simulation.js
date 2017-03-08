@@ -15,6 +15,9 @@ function RWS() {
     inst.mesh;
     inst.simulation;
     
+    inst.loader = new THREE.ColladaLoader();
+    inst.loader.load('EmDriveModel.dae', function ( collada ) { inst.dae = collada.inst.scene; inst.dae.scale.x = inst.dae.scale.y = inst.dae.scale.z = 25.0; inst.scene.add(inst.dae); inst.animate(); });
+    
     // constants
     var STAR_COUNT = 1000;
     var EMDRIVEMINDISTANCE = 3000;
@@ -36,8 +39,6 @@ function RWS() {
         inst.controls.damping = 0.2;
 
         // initialize mesh and render
-        inst.loader = new THREE.ColladaLoader();
-        inst.loader.load( 'EmDriveModel.dae', function ( collada ) { inst.dae = collada.inst.scene; inst.dae.scale.x = inst.dae.scale.y = inst.dae.scale.z = 25.0; inst.scene.add(inst.dae); inst.animate(); });
         
         inst.simulation = new Object();
         inst.simulation.isActive = true;

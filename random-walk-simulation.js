@@ -23,8 +23,28 @@ function RWS() {
     var SPEED_OF_LIGHT = 2.99 * Math.pow(10, 8);
     var SCALE_FACTOR = 100000;
 
+    inst.scene = new THREE.Scene();
+    inst.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 12000);
+    inst.renderer = new THREE.WebGLRenderer();
+    inst.renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(inst.renderer.domElement);
+    inst.camera.position.z = 1100;
+    inst.controls = new THREE.OrbitControls(inst.camera);
+    inst.controls.damping = 0.2;
 
-    inst.initialize = function(autostart) {
+    // initialize mesh and render
+    inst.loader = new THREE.ColladaLoader();
+    inst.loader.load('EmDriveModel.dae', function ( collada ) { inst.dae = collada.inst.scene; inst.dae.scale.x = inst.dae.scale.y = inst.dae.scale.z = 25.0; inst.scene.add(inst.dae); inst.animate(); });
+        
+    inst.simulation = new Object();
+    inst.simulation.isActive = true;
+    inst.simulation.steps = 0;
+    inst.simulation.startTime = new Date().getTime() / 1000;
+    inst.simulation.l = 1 / (SUN_OPACITY * SUN_DENSITY);
+    inst.initMesh();
+    inst.displayHint();
+    
+    /*inst.initialize = function(autostart) {
         // initialize three.js
         inst.scene = new THREE.Scene();
         inst.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 12000);
@@ -47,7 +67,7 @@ function RWS() {
         inst.initMesh();
         inst.displayHint();
         if (autostart || typeof autostart == 'undefined') inst.render();
-    };
+    };*/
 
     inst.animate = function() {
         // Defined in the RequestAnimationFrame.js file, this function
@@ -55,6 +75,8 @@ function RWS() {
         requestAnimationFrame(animate);
         inst.render();
     }
+    
+    //-----------------------------Photon Movement and propagation--------------------------
     /**
      * Initialize Mesh Objects 
      */

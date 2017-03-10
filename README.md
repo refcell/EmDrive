@@ -7,5 +7,5 @@ Based on the dimensions given in the jpg file labeled EmdriveDimensions.jpg
 <br />
 Modeled in Tinkercad - Convert file format from STL to Collada using www.greentoken.de/onlineconv/
 <br />
-https://github.com/alextselegidis/random-walk-simulation
+Orbital controls used from https://github.com/alextselegidis/random-walk-simulation
 <br />

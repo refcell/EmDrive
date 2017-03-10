@@ -5,7 +5,6 @@
 function RWS() {
     // members
     var inst = this;
-    var camera, scene, renderer;
     inst.dae;
     inst.loader;
     inst.scene;
@@ -22,29 +21,8 @@ function RWS() {
     var SUN_DENSITY = 1408;
     var SPEED_OF_LIGHT = 2.99 * Math.pow(10, 8);
     var SCALE_FACTOR = 100000;
-
-    inst.scene = new THREE.Scene();
-    inst.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 12000);
-    inst.renderer = new THREE.WebGLRenderer();
-    inst.renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(inst.renderer.domElement);
-    inst.camera.position.z = 1100;
-    inst.controls = new THREE.OrbitControls(inst.camera);
-    inst.controls.damping = 0.2;
-
-    // initialize mesh and render
-    inst.loader = new THREE.ColladaLoader();
-    inst.loader.load('EmDriveModel.dae', function ( collada ) { inst.dae = collada.inst.scene; inst.dae.scale.x = inst.dae.scale.y = inst.dae.scale.z = 25.0; inst.scene.add(inst.dae); inst.animate(); });
-        
-    inst.simulation = new Object();
-    inst.simulation.isActive = true;
-    inst.simulation.steps = 0;
-    inst.simulation.startTime = new Date().getTime() / 1000;
-    inst.simulation.l = 1 / (SUN_OPACITY * SUN_DENSITY);
-    inst.initMesh();
-    inst.displayHint();
     
-    /*inst.initialize = function(autostart) {
+    inst.initialize = function(autostart) {
         // initialize three.js
         inst.scene = new THREE.Scene();
         inst.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 12000);
@@ -57,7 +35,7 @@ function RWS() {
 
         // initialize mesh and render
         inst.loader = new THREE.ColladaLoader();
-    inst.loader.load('EmDriveModel.dae', function ( collada ) { inst.dae = collada.inst.scene; inst.dae.scale.x = inst.dae.scale.y = inst.dae.scale.z = 25.0; inst.scene.add(inst.dae); inst.animate(); });
+        inst.loader.load('EmDriveModel.dae', function ( collada ) { inst.dae = collada.inst.scene; inst.dae.scale.x = inst.dae.scale.y = inst.dae.scale.z = 25.0; inst.scene.add(inst.dae); inst.animate(); });
         
         inst.simulation = new Object();
         inst.simulation.isActive = true;
@@ -67,13 +45,13 @@ function RWS() {
         inst.initMesh();
         inst.displayHint();
         if (autostart || typeof autostart == 'undefined') inst.render();
-    };*/
-
+    };
+    
     inst.animate = function() {
         // Defined in the RequestAnimationFrame.js file, this function
         // means that the animate function is called upon timeout:
         requestAnimationFrame(animate);
-        inst.render();
+        inst.render(inst.scene, inst.camera);
     }
     
     //-----------------------------Photon Movement and propagation--------------------------
@@ -82,30 +60,19 @@ function RWS() {
      */
     inst.initMesh = function() {
         inst.mesh = new Object(); 
-
-        /* sun
-        *var gSun = new THREE.SphereGeometry(SUN_RADIUS * SCALE_FACTOR, 26, 26);
-        *var mSun = new THREE.MeshBasicMaterial({ color: 0xFFFF2E, wireframe: true, opacity: 0.1, transparent: true });
-        *inst.mesh.sun = new THREE.Mesh(gSun, mSun);
-        *inst.scene.add(inst.mesh.sun);
-        */
-        
         // photon
         var gPhoton = new THREE.SphereGeometry(5, 8, 6);
         var mPhoton = new THREE.MeshBasicMaterial({ color: 0x2E66FF });
         inst.mesh.photon = new THREE.Mesh(gPhoton, mPhoton);
         inst.scene.add(inst.mesh.photon);
-
         // random background stars
         for (var i=0; i < STAR_COUNT; i++) {
             var gStar = new THREE.SphereGeometry(6, 8, 6);
             var mStar = new THREE.MeshBasicMaterial({ color: 0xFFFFFF });
             var star = new THREE.Mesh(gStar, mStar);
-            
             star.position.x = inst.rnd();
             star.position.y = inst.rnd();
             star.position.z = inst.rnd();
-
             // if the star is very close to the sun it will 
             // not be added to the scene
             if (inst.calc3dDistance(star) >= 0)

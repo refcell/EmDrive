@@ -234,7 +234,7 @@ function render() {
      * This method is called when the simulation renders and it displays the simulation statistics
      */
     function updateStats(html, command, text) {
-        var html = html + command + text;
+        var html = command + text + html;
         document.getElementById('statistics').innerHTML = html;
     };
     

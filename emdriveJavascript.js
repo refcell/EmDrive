@@ -14,7 +14,7 @@ var loader = new THREE.ColladaLoader();
 loader.options.convertUpAxis = true;
 loader.load('EmDriveModel.dae', function ( collada ) 
 { 
-    var dae = collada.scene; 
+    dae = collada.scene; 
     dae.scale.x = dae.scale.y = dae.scale.z = 25.0; 
     dae.updateMatrix();
     init();

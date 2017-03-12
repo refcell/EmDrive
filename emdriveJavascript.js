@@ -10,14 +10,14 @@ var simulation;
 var scene;
 var mesh; 
     
-var loader = new THREE.JSONLoader();
+/*var loader = new THREE.JSONLoader();
 loader.load( 'EmDriveModel.json', function ( geometry, materials ) {
     var mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial( materials ) );
     init();
     animate();
-});
+});*/
 
-/*var loader = new THREE.ColladaLoader();
+var loader = new THREE.ColladaLoader();
 loader.options.convertUpAxis = true;
 loader.load('EmDriveModel.dae', function ( collada ) 
 { 
@@ -29,12 +29,21 @@ loader.load('EmDriveModel.dae', function ( collada )
 						animation.play();
 					}
 				} );
+    setMaterial(dae, new THREE.MeshBasicMaterial({color: 0xff0000}));
     dae.scale.x = dae.scale.y = dae.scale.z = .1; 
     dae.updateMatrix();
     init();
     animate();
-});*/
+});
 
+var setMaterial = function(node, material) {
+  node.material = material;
+  if (node.children) {
+    for (var i = 0; i < node.children.length; i++) {
+      setMaterial(node.children[i], material);
+    }
+  }
+}
 // constants
 var STAR_COUNT = 1000;
 var EMDRIVEMINDISTANCE = 3000;
@@ -55,8 +64,8 @@ function init() {
    controls = new THREE.OrbitControls(camera);
    controls.damping = 0.2;
    scene.add(camera)
-   //scene.add(dae);
-   scene.add(mesh);
+   scene.add(dae);
+   //scene.add(mesh);
 	
    // initialize mesh and render
    simulation = new Object();

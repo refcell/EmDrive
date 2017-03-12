@@ -17,12 +17,9 @@
 		<script type="text/javascript" src="emdriveJavascript.js"></script>
 	</head>
 	<body> 
-		<script type="text/javascript"> 
-			var rws = new RWS();
-		</script>
-		<button onclick="rws = new RWS(); rws.initialize(); rws.displayStats();">Start</button>
-		<button onclick="rws.resume();">Resume</button>
-		<button onclick="rws.pause();">Pause</button>
+		<button onclick="resume()">Start</button>
+		<button onclick="resume();">Resume</button>
+		<button onclick="pause();">Pause</button>
 		<div id="statistics"></div>
 		<!-- three.js CDN: http://cdnjs.cloudflare.com/ajax/libs/three.js/r68/three.min.js -->
 	</body>

@@ -190,10 +190,11 @@ function createLine(oldVector, newVector) {
      */
 function render() {
         requestAnimationFrame(render);
-        if (simulation.isActive)
+        if (simulation.isActive) {
             var coordinate = processSimulation();
 	    var command = '<p style="color:purple;">Photon Moved</p>';
             updateStats(document.getElementById('statistics').innerHTML, command, coordinate);
+	}
         renderer.render(scene, camera);
     };
     

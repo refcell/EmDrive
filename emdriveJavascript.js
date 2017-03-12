@@ -9,31 +9,20 @@ var mesh;
 var simulation;
 var scene;
 var mesh; 
-    
-/*var loader = new THREE.JSONLoader();
-loader.load( 'EmDriveModel.json', function ( geometry, materials ) {
-    var mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial( materials ) );
-    init();
-    animate();
-});*/
 
+//http://www.96methods.com/2012/02/three-js-importing-a-model/
 var loader = new THREE.ColladaLoader();
 loader.options.convertUpAxis = true;
 loader.load('EmDriveModel.dae', function ( collada ) 
 { 
     dae = collada.scene;
-    /*dae.traverse( function ( child ) {
-					if ( child instanceof THREE.SkinnedMesh ) {
-						var animation = new THREE.Animation( child, child.geometry.animation );
-						animation.play();
-					}
-				} );*/
     setMaterial(dae, new THREE.MeshBasicMaterial({color: 0xCC9933}));
     dae.scale.x = dae.scale.y = dae.scale.z = 5; 
     dae.updateMatrix();
     init();
     animate();
 });
+
 //http://stackoverflow.com/questions/15025319/changing-texture-and-color-on-three-js-collada-object
 var setMaterial = function(node, material) {
   node.material = material;
@@ -64,7 +53,6 @@ function init() {
    controls.damping = 0.2;
    scene.add(camera)
    scene.add(dae);
-   //scene.add(mesh);
 	
    // initialize mesh and render
    simulation = new Object();
@@ -73,6 +61,7 @@ function init() {
    simulation.startTime = new Date().getTime() / 1000;
    simulation.l = 1 / (SUN_OPACITY * SUN_DENSITY);
    initMesh();
+   displayStats();
    displayHint();
 };
     
@@ -201,7 +190,7 @@ function render() {
         requestAnimationFrame(render);
         if (simulation.isActive)
             processSimulation();
-            updateStats();
+            updateStats(document.getElementById('statistics').innerHTML, );
         renderer.render(scene, camera);
     };
     
@@ -229,14 +218,9 @@ function render() {
      * of steps, simulation time, photon real time in years etc ...)
      */
     function displayStats() {
-        var html = 
-            '<strong>Simulation Results</strong><br>' +
-            'Duration: ' + Number(simulation.endTime - simulation.startTime).toFixed(2) + 's<br>' +
-            'Total Steps: ' + simulation.steps + '<br>' +
-            'Escape Time: ' + Math.round(48.32 * simulation.steps * simulation.l / Math.pow(0, 2)) + ' Years';
-
-        var div = document.createElement('div');
-        div.innerHTML = html;
+        var html = '<p style="color:yellow;">Scene Created</p>' + '<p style="color:purple;">Photon Created</p>' + '<p style="color:green;">EmDrive Model Loaded</p>' + '<p style="color:white;">Press Start To Begin</p>';
+        /*var div = document.createElement('div');
+        div.innerHTML = html;*/
         document.getElementById('statistics').appendChild(div);
     };
     
@@ -245,12 +229,8 @@ function render() {
      *
      * This method is called when the simulation renders and it displays the simulation statistics
      */
-    function updateStats() {
-        var html = 
-            '<strong>Simulation Results</strong><br>' +
-            'Duration: ' + Number(simulation.endTime - simulation.startTime).toFixed(2) + 's<br>' +
-            'Total Steps: ' + simulation.steps + '<br>' +
-            'Escape Time: ' + Math.round(48.32 * simulation.steps * simulation.l / Math.pow(0, 2)) + ' Years';
+    function updateStats(html, command, text) {
+        var html = html + command + text;
         document.getElementById('statistics').innerHTML = html;
     };
     

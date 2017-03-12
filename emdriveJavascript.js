@@ -28,8 +28,8 @@ loader.load('EmDriveModel.dae', function ( collada )
 						animation.play();
 					}
 				} );
-    setMaterial(dae, new THREE.MeshBasicMaterial({color: 0xff0000}));
-    dae.scale.x = dae.scale.y = dae.scale.z = .1; 
+    setMaterial(dae, new THREE.MeshBasicMaterial({color: 0xCC9933}));
+    dae.scale.x = dae.scale.y = dae.scale.z = 5; 
     dae.updateMatrix();
     init();
     animate();

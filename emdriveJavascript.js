@@ -21,7 +21,7 @@ loader.load('EmDriveModel.dae', function ( collada )
 						animation.play();
 					}
 				} );
-    dae.scale.x = dae.scale.y = dae.scale.z = 25.0; 
+    dae.scale.x = dae.scale.y = dae.scale.z = .1; 
     dae.updateMatrix();
     init();
     animate();

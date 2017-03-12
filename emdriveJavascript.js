@@ -15,6 +15,12 @@ loader.options.convertUpAxis = true;
 loader.load('EmDriveModel.dae', function ( collada ) 
 { 
     dae = collada.scene; 
+    dae.traverse( function ( child ) {
+					if ( child instanceof THREE.SkinnedMesh ) {
+						var animation = new THREE.Animation( child, child.geometry.animation );
+						animation.play();
+					}
+				} );
     dae.scale.x = dae.scale.y = dae.scale.z = 25.0; 
     dae.updateMatrix();
     init();

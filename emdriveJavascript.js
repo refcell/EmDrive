@@ -7,8 +7,8 @@ var controls;
 var renderer;
 var mesh;
 var simulation;
-var scene = new THREE.Scene();
-var mesh = new Object(); 
+var scene;
+var mesh; 
     
 var loader = new THREE.ColladaLoader();
 loader.options.convertUpAxis = true;
@@ -37,7 +37,8 @@ var SPEED_OF_LIGHT = 2.99 * Math.pow(10, 8);
 var SCALE_FACTOR = 100000;
 
 function init() {
-    // initialize three.js
+   // initialize three.js
+   scene = new THREE.Scene();
    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 12000);
    var renderer = new THREE.WebGLRenderer();
    renderer.setSize(window.innerWidth, window.innerHeight);
@@ -71,6 +72,7 @@ function animate() {
 
 function initMesh() {
     // photon
+    mesh = new Object();
     var gPhoton = new THREE.SphereGeometry(5, 8, 6);
     var mPhoton = new THREE.MeshBasicMaterial({ color: 0x2E66FF });
     mesh.photon = new THREE.Mesh(gPhoton, mPhoton);

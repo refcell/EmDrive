@@ -18,6 +18,7 @@ function RWS() {
     var STAR_COUNT = 1000;
     var EMDRIVEMINDISTANCE = 3000;
     var SUN_OPACITY = 8;
+    var STAR_MIN_DISTANCE = 3000;
     var SUN_DENSITY = 1408;
     var SPEED_OF_LIGHT = 2.99 * Math.pow(10, 8);
     var SCALE_FACTOR = 100000;
@@ -74,7 +75,7 @@ function RWS() {
             star.position.z = inst.rnd();
             // if the star is very close to the sun it will 
             // not be added to the scene
-            if (inst.calc3dDistance(star) >= 0)
+            if (inst.calc3dDistance(star) >= STAR_MIN_DISTANCE)
                 inst.scene.add(star);
         }
     }
@@ -99,7 +100,7 @@ function RWS() {
         inst.createLine(oldVector, newVector);
 
         dist = inst.calc3dDistance(inst.mesh.photon);
-        if (dist > 0) {
+        if (dist > 3000) {
             console.log('Simulation Ended'); // stop simulation and print data
             inst.simulation.isActive = false;
             inst.simulation.endTime = new Date().getTime() / 1000;

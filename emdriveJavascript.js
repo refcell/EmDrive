@@ -118,7 +118,8 @@ function processSimulation() {
         mesh.photon.position.x += pxl * Math.sin(phi) * Math.cos(theta);
         mesh.photon.position.y += pxl * Math.sin(phi) * Math.sin(theta);
         mesh.photon.position.z += pxl * Math.cos(phi);
-
+	var coordinate = 'X:' + mesh.photon.position.x + ' Y:' + mesh.photon.position.y + ' Z:' + mesh.photon.position.z;
+	
         var newVector = getVector3(mesh.photon); // get new position
         createLine(oldVector, newVector);
 
@@ -129,6 +130,7 @@ function processSimulation() {
             simulation.endTime = new Date().getTime() / 1000;
             displayStats();
         }   
+	return coordinate;
     };
 
     /**
@@ -189,8 +191,9 @@ function createLine(oldVector, newVector) {
 function render() {
         requestAnimationFrame(render);
         if (simulation.isActive)
-            processSimulation();
-            updateStats(document.getElementById('statistics').innerHTML, );
+            var coordinate = processSimulation();
+	    var command = '<p style="color:purple;">Photon Moved</p>';
+            updateStats(document.getElementById('statistics').innerHTML, command, coordinate);
         renderer.render(scene, camera);
     };
     

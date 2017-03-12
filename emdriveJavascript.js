@@ -39,17 +39,18 @@ var SCALE_FACTOR = 100000;
 function init() {
    // initialize three.js
    scene = new THREE.Scene();
-   var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 12000);
-   var renderer = new THREE.WebGLRenderer();
+   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 12000);
+   renderer = new THREE.WebGLRenderer();
    renderer.setSize(window.innerWidth, window.innerHeight);
    document.body.appendChild(renderer.domElement);
    camera.position.z = 1100;
-   var controls = new THREE.OrbitControls(camera);
+   controls = new THREE.OrbitControls(camera);
    controls.damping = 0.2;
+   scene.add(camera)
    scene.add(dae);
 
    // initialize mesh and render
-   var simulation = new Object();
+   simulation = new Object();
    simulation.isActive = false;
    simulation.steps = 0;
    simulation.startTime = new Date().getTime() / 1000;

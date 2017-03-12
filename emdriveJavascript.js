@@ -22,7 +22,6 @@ loader.options.convertUpAxis = true;
 loader.load('EmDriveModel.dae', function ( collada ) 
 { 
     dae = collada.scene;
-    mesh = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
     dae.traverse( function ( child ) {
 					if ( child instanceof THREE.SkinnedMesh ) {
 						var animation = new THREE.Animation( child, child.geometry.animation );

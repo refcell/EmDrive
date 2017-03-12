@@ -14,8 +14,8 @@ var loader = new THREE.ColladaLoader();
 loader.options.convertUpAxis = true;
 loader.load('EmDriveModel.dae', function ( collada ) 
 { 
-    var dae = collada.inst.scene; 
-    dae.scale.x = inst.dae.scale.y = inst.dae.scale.z = 25.0; 
+    var dae = collada.scene; 
+    dae.scale.x = dae.scale.y = dae.scale.z = 25.0; 
     dae.updateMatrix();
     init();
     animate();
@@ -35,11 +35,11 @@ function init() {
    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 12000);
    var renderer = new THREE.WebGLRenderer();
    renderer.setSize(window.innerWidth, window.innerHeight);
-   document.body.appendChild(inst.renderer.domElement);
+   document.body.appendChild(renderer.domElement);
    camera.position.z = 1100;
-   var controls = new THREE.OrbitControls(inst.camera);
+   var controls = new THREE.OrbitControls(camera);
    controls.damping = 0.2;
-   scene.add(inst.dae);
+   scene.add(dae);
 
    // initialize mesh and render
    var simulation = new Object();

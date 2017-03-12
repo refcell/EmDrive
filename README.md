@@ -9,3 +9,4 @@ Modeled in Tinkercad - Convert file format from STL to Collada using www.greento
 <br />
 Orbital controls used from https://github.com/alextselegidis/random-walk-simulation
 <br />
+A special thanks to mrdoob for the collada loader tutorials and information

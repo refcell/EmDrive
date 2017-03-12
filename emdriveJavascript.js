@@ -10,11 +10,19 @@ var simulation;
 var scene;
 var mesh; 
     
-var loader = new THREE.ColladaLoader();
+var loader = new THREE.JSONLoader();
+loader.load( 'EmDriveModel.json', function ( geometry, materials ) {
+    var mesh = new THREE.Mesh( geometry, new THREE.MeshFaceMaterial( materials ) );
+    init();
+    animate();
+});
+
+/*var loader = new THREE.ColladaLoader();
 loader.options.convertUpAxis = true;
 loader.load('EmDriveModel.dae', function ( collada ) 
 { 
-    dae = collada.scene; 
+    dae = collada.scene;
+    mesh = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
     dae.traverse( function ( child ) {
 					if ( child instanceof THREE.SkinnedMesh ) {
 						var animation = new THREE.Animation( child, child.geometry.animation );
@@ -25,7 +33,7 @@ loader.load('EmDriveModel.dae', function ( collada )
     dae.updateMatrix();
     init();
     animate();
-});
+});*/
 
 // constants
 var STAR_COUNT = 1000;
@@ -47,8 +55,9 @@ function init() {
    controls = new THREE.OrbitControls(camera);
    controls.damping = 0.2;
    scene.add(camera)
-   scene.add(dae);
-
+   //scene.add(dae);
+   scene.add(mesh);
+	
    // initialize mesh and render
    simulation = new Object();
    simulation.isActive = false;

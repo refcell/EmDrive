@@ -1,118 +1,114 @@
+var inst = this;
+var dae;
+var loader;
+var scene;
+var camera;
+var controls;
+var renderer;
+var mesh;
+var simulation;
+var scene = new THREE.Scene();
+var mesh = new Object(); 
+    
+var loader = new THREE.ColladaLoader();
+loader.options.convertUpAxis = true;
+loader.load('EmDriveModel.dae', function ( collada ) 
+{ 
+    var dae = collada.inst.scene; 
+    dae.scale.x = inst.dae.scale.y = inst.dae.scale.z = 25.0; 
+    dae.updateMatrix();
+    init();
+    animate();
+});
+
+// constants
+var STAR_COUNT = 1000;
+var EMDRIVEMINDISTANCE = 3000;
+var SUN_OPACITY = 8;
+var STAR_MIN_DISTANCE = 3000;
+var SUN_DENSITY = 1408;
+var SPEED_OF_LIGHT = 2.99 * Math.pow(10, 8);
+var SCALE_FACTOR = 100000;
+
+function init() {
+    // initialize three.js
+   var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 12000);
+   var renderer = new THREE.WebGLRenderer();
+   renderer.setSize(window.innerWidth, window.innerHeight);
+   document.body.appendChild(inst.renderer.domElement);
+   camera.position.z = 1100;
+   var controls = new THREE.OrbitControls(inst.camera);
+   controls.damping = 0.2;
+   scene.add(inst.dae);
+
+   // initialize mesh and render
+   var simulation = new Object();
+   simulation.isActive = true;
+   simulation.steps = 0;
+   simulation.startTime = new Date().getTime() / 1000;
+   simulation.l = 1 / (SUN_OPACITY * SUN_DENSITY);
+   initMesh();
+   displayHint();
+};
+    
+function animate() {
+   // Defined in the RequestAnimationFrame.js file, this function
+   // means that the animate function is called upon timeout:
+   requestAnimationFrame(animate);
+   render();
+}
+    
+//-----------------------------Photon Movement and propagation--------------------------
 /**
- * Random Walk Simulation (Photon) - Three.js
- * @requires three.js and OrbitControls.js
- */
-function RWS() {
-    // members
-    var inst = this;
-    inst.dae;
-    inst.loader;
-    inst.scene;
-    inst.camera;
-    inst.controls;
-    inst.renderer;
-    inst.mesh;
-    inst.simulation;
-    
-    inst.loader = new THREE.ColladaLoader();
-    inst.loader.options.convertUpAxis = true;
-    inst.loader.load('EmDriveModel.dae', function ( collada ) { 
-        inst.dae = collada.inst.scene; 
-        inst.dae.scale.x = inst.dae.scale.y = inst.dae.scale.z = 25.0; 
-        inst.dae.updateMatrix();
-        inst.animate();
-    });
+* Initialize Mesh Objects 
+*/
 
-    // constants
-    var STAR_COUNT = 1000;
-    var EMDRIVEMINDISTANCE = 3000;
-    var SUN_OPACITY = 8;
-    var STAR_MIN_DISTANCE = 3000;
-    var SUN_DENSITY = 1408;
-    var SPEED_OF_LIGHT = 2.99 * Math.pow(10, 8);
-    var SCALE_FACTOR = 100000;
-    
-    inst.initialize = function(autostart) {
-        // initialize three.js
-        inst.scene = new THREE.Scene();
-        inst.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 12000);
-        inst.renderer = new THREE.WebGLRenderer();
-        inst.renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(inst.renderer.domElement);
-        inst.camera.position.z = 1100;
-        inst.controls = new THREE.OrbitControls(inst.camera);
-        inst.controls.damping = 0.2;
-        inst.scene.add(inst.dae);
-
-        // initialize mesh and render
-        inst.simulation = new Object();
-        inst.simulation.isActive = true;
-        inst.simulation.steps = 0;
-        inst.simulation.startTime = new Date().getTime() / 1000;
-        inst.simulation.l = 1 / (SUN_OPACITY * SUN_DENSITY);
-        inst.initMesh();
-        inst.displayHint();
-        if (autostart || typeof autostart == 'undefined') inst.render();
-    };
-    
-    inst.animate = function() {
-        // Defined in the RequestAnimationFrame.js file, this function
-        // means that the animate function is called upon timeout:
-        requestAnimationFrame(animate);
-        inst.render();
+function initMesh() {
+    // photon
+    var gPhoton = new THREE.SphereGeometry(5, 8, 6);
+    var mPhoton = new THREE.MeshBasicMaterial({ color: 0x2E66FF });
+    mesh.photon = new THREE.Mesh(gPhoton, mPhoton);
+    scene.add(mesh.photon);
+    // random background stars
+    for (var i=0; i < STAR_COUNT; i++) {
+        var gStar = new THREE.SphereGeometry(6, 8, 6);
+        var mStar = new THREE.MeshBasicMaterial({ color: 0xFFFFFF });
+        var star = new THREE.Mesh(gStar, mStar);
+        star.position.x = rnd();
+        star.position.y = rnd();
+        star.position.z = rnd();
+        // if the star is very close to the sun it will 
+        // not be added to the scene
+        if (calc3dDistance(star) >= STAR_MIN_DISTANCE)
+            scene.add(star);
     }
-    
-    //-----------------------------Photon Movement and propagation--------------------------
-    /**
-     * Initialize Mesh Objects 
-     */
-    inst.initMesh = function() {
-        inst.mesh = new Object(); 
-        // photon
-        var gPhoton = new THREE.SphereGeometry(5, 8, 6);
-        var mPhoton = new THREE.MeshBasicMaterial({ color: 0x2E66FF });
-        inst.mesh.photon = new THREE.Mesh(gPhoton, mPhoton);
-        inst.scene.add(inst.mesh.photon);
-        // random background stars
-        for (var i=0; i < STAR_COUNT; i++) {
-            var gStar = new THREE.SphereGeometry(6, 8, 6);
-            var mStar = new THREE.MeshBasicMaterial({ color: 0xFFFFFF });
-            var star = new THREE.Mesh(gStar, mStar);
-            star.position.x = inst.rnd();
-            star.position.y = inst.rnd();
-            star.position.z = inst.rnd();
-            // if the star is very close to the sun it will 
-            // not be added to the scene
-            if (inst.calc3dDistance(star) >= STAR_MIN_DISTANCE)
-                inst.scene.add(star);
-        }
-    }
+}
 
-    /**
-     * Process Simulation Frame
-     *
-     * This method proceeds one step of the simulation (60 steps will make 1 second on scene).
-     */
-    inst.processSimulation = function() {
-        inst.simulation.steps++
-        var oldVector = inst.getVector3(inst.mesh.photon); // get old position
+/**
+* Process Simulation Frame
+*
+* This method proceeds one step of the simulation (60 steps will make 1 second on scene).
+*/
+function processSimulation() {
+        simulation.steps++
+        var oldVector = getVector3(mesh.photon); // get old position
 
         var pxl = inst.simulation.l * SCALE_FACTOR;
         var theta = 2 * Math.PI * Math.random();
         var phi = Math.PI - 2 * Math.PI * Math.random();
-        inst.mesh.photon.position.x += pxl * Math.sin(phi) * Math.cos(theta);
-        inst.mesh.photon.position.y += pxl * Math.sin(phi) * Math.sin(theta);
-        inst.mesh.photon.position.z += pxl * Math.cos(phi);
+        mesh.photon.position.x += pxl * Math.sin(phi) * Math.cos(theta);
+        mesh.photon.position.y += pxl * Math.sin(phi) * Math.sin(theta);
+        mesh.photon.position.z += pxl * Math.cos(phi);
 
-        var newVector = inst.getVector3(inst.mesh.photon); // get new position
-        inst.createLine(oldVector, newVector);
+        var newVector = getVector3(mesh.photon); // get new position
+        createLine(oldVector, newVector);
 
-        dist = inst.calc3dDistance(inst.mesh.photon);
+        dist = calc3dDistance(mesh.photon);
         if (dist > 3000) {
             console.log('Simulation Ended'); // stop simulation and print data
-            inst.simulation.isActive = false;
-            inst.simulation.endTime = new Date().getTime() / 1000;
-            inst.displayStats();
+            simulation.isActive = false;
+            simulation.endTime = new Date().getTime() / 1000;
+            displayStats();
         }   
     };
 
@@ -121,7 +117,7 @@ function RWS() {
      * 
      * @return {Number}
      */
-    inst.rnd = function() {
+function rnd() {
         return Math.floor((Math.random() * 10000) - 5000);
     };
 
@@ -132,7 +128,7 @@ function RWS() {
      * @param {THREE.Mesh} mesh 
      * @return {Number}
      */
-    inst.calc3dDistance = function(mesh) {
+function calc3dDistance(mesh) {
         return Math.sqrt(Math.pow(mesh.position.x, 2) 
                 + Math.pow(mesh.position.y, 2) + Math.pow(mesh.position.z, 2));
     };
@@ -142,7 +138,7 @@ function RWS() {
      * 
      * @param {THREE.Mesh} mesh
      */
-    inst.getVector3 = function(mesh) {
+function getVector3(mesh) {
         return new THREE.Vector3(
             mesh.position.x,
             mesh.position.y,
@@ -157,13 +153,13 @@ function RWS() {
      * @param {THREE.Vector3} oldVector 
      * @param {THREE.Vector3} newVector 
      */
-    inst.createLine = function(oldVector, newVector) {
+function createLine(oldVector, newVector) {
         var gLine = new THREE.Geometry();
         gLine.vertices.push(oldVector);
         gLine.vertices.push(newVector);
         var mLine = new THREE.LineBasicMaterial({ color: 0xC93434, linewidth: 1, transparent: true, opacity: 0.9 });
         var line = new THREE.Line(gLine, mLine);
-        inst.scene.add(line);
+        scene.add(line);
     };
    
   //-----------------------------Loop Program------------------------------------
@@ -171,26 +167,26 @@ function RWS() {
      /**
      * Render Loop
      */
-    inst.render = function() {
-        requestAnimationFrame(inst.render);
-        if (inst.simulation.isActive)
-            inst.processSimulation();
-            inst.updateStats();
-        inst.renderer.render(inst.scene, inst.camera);
+function render() {
+        requestAnimationFrame(render);
+        if (simulation.isActive)
+            processSimulation();
+            updateStats();
+        renderer.render(scene, camera);
     };
     
     /**
      * Pause Simulation
      */
-    inst.pause = function() {
-        inst.simulation.isActive = false;
+    function pause() {
+        simulation.isActive = false;
     };
 
     /**
      * Resume Simulation
      */
-    inst.resume = function() {
-        inst.simulation.isActive = true;
+    function resume() {
+        simulation.isActive = true;
     };
     
   //-----------------------------Data Section------------------------------------  
@@ -202,12 +198,12 @@ function RWS() {
      * of the sun and it displays the simulation statistics (number
      * of steps, simulation time, photon real time in years etc ...)
      */
-    inst.displayStats = function() {
+    function displayStats() {
         var html = 
             '<strong>Simulation Results</strong><br>' +
-            'Duration: ' + Number(inst.simulation.endTime - inst.simulation.startTime).toFixed(2) + 's<br>' +
-            'Total Steps: ' + inst.simulation.steps + '<br>' +
-            'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(0, 2)) + ' Years';
+            'Duration: ' + Number(simulation.endTime - simulation.startTime).toFixed(2) + 's<br>' +
+            'Total Steps: ' + simulation.steps + '<br>' +
+            'Escape Time: ' + Math.round(48.32 * simulation.steps * simulation.l / Math.pow(0, 2)) + ' Years';
 
         var div = document.createElement('div');
         div.innerHTML = html;
@@ -219,19 +215,19 @@ function RWS() {
      *
      * This method is called when the simulation renders and it displays the simulation statistics
      */
-    inst.updateStats = function() {
+    function updateStats() {
         var html = 
             '<strong>Simulation Results</strong><br>' +
-            'Duration: ' + Number(inst.simulation.endTime - inst.simulation.startTime).toFixed(2) + 's<br>' +
-            'Total Steps: ' + inst.simulation.steps + '<br>' +
-            'Escape Time: ' + Math.round(48.32 * inst.simulation.steps * inst.simulation.l / Math.pow(0, 2)) + ' Years';
+            'Duration: ' + Number(simulation.endTime - simulation.startTime).toFixed(2) + 's<br>' +
+            'Total Steps: ' + simulation.steps + '<br>' +
+            'Escape Time: ' + Math.round(48.32 * simulation.steps * simulation.l / Math.pow(0, 2)) + ' Years';
         document.getElementById('statistics').innerHTML = html;
     };
     
     /**
      * Display Viewport Hint
      */
-    inst.displayHint = function() {
+    function displayHint() {
         var html = '<strong>Use your mouse to change the view.</strong>';
         var div = document.createElement('div');
         div.style.position = 'absolute';
@@ -243,4 +239,4 @@ function RWS() {
         div.innerHTML = html;
         document.body.appendChild(div);
     };
-}
+

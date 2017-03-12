@@ -222,8 +222,8 @@ function render() {
      */
     function displayStats() {
         var html = '<p style="color:yellow;">Scene Created</p>' + '<p style="color:purple;">Photon Created</p>' + '<p style="color:green;">EmDrive Model Loaded</p>' + '<p style="color:white;">Press Start To Begin</p>';
-        /*var div = document.createElement('div');
-        div.innerHTML = html;*/
+        var div = document.createElement('div');
+        div.innerHTML = html;
         document.getElementById('statistics').appendChild(div);
     };
     

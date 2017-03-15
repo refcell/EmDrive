@@ -10,3 +10,6 @@ Modeled in Tinkercad - Convert file format from STL to Collada using www.greento
 Orbital controls used from https://github.com/alextselegidis/random-walk-simulation
 <br />
 A special thanks to mrdoob for the collada loader tutorials and information
+<br />
+Photons could conceivably decay, but new analysis of the cosmic microwave background shows that a visible wavelength photon is stable for at least 10^18 years. – http://physics.aps.org/synopsis-for/10.1103/PhysRevLett.111.021801
+<br />

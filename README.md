@@ -11,5 +11,7 @@ Orbital controls used from https://github.com/alextselegidis/random-walk-simulat
 <br />
 A special thanks to mrdoob for the collada loader tutorials and information
 <br />
+<hr />
+<br />
 Photons could conceivably decay, but new analysis of the cosmic microwave background shows that a visible wavelength photon is stable for at least 10^18 years. – http://physics.aps.org/synopsis-for/10.1103/PhysRevLett.111.021801
 <br />

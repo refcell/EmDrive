@@ -16,7 +16,7 @@ loader.options.convertUpAxis = true;
 loader.load('EmDriveModel.dae', function ( collada ) 
 { 
     dae = collada.scene;
-    setMaterial(dae, new THREE.MeshBasicMaterial({side: THREE.DoubleSide, color: 0xCC9933}));
+    setMaterial(dae, new THREE.MeshBasicMaterial({side: THREE.BackSide, color: 0xCC9933}));
     dae.scale.x = dae.scale.y = dae.scale.z = 5; 
     dae.updateMatrix();
     init();

@@ -19,6 +19,7 @@ loader.load('EmDriveModel.dae', function ( collada )
     setMaterial(dae, new THREE.MeshBasicMaterial({color: 0xCC9933}));
     dae.scale.x = dae.scale.y = dae.scale.z = 5; 
     dae.updateMatrix();
+    dae.material.side = THREE.DoubleSide;
     init();
     animate();
 });

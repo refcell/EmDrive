@@ -20,3 +20,5 @@ Photons could conceivably decay, but new analysis of the cosmic microwave backgr
 <br />
 Solid State Conduction theory holds that metals, when in a bulk metallic state, bond together in such a way so that their valence orbitals share with other atoms with little or no energy required for the exchange in position.  This lack of energy to produce movement in the free floating electrons of atoms comprising a bulk metal create the ability of the metal to be a near resistanceless conductor for heat and electricity.  And, the easy movement of the electrons makes metals an excellent mirror to photons. The perpendicular movement of the conduction electrons, with little energy being transferred to the bonds or orbitals of the metal, allows the reactive field created by the photon able to reflect backwards and recreate the photon as a specular (equal angle of incidence and exit) reflection.
 <br />
+http://www.theoryofabsolutes.com/photonreflectionindepth.html
+<br />

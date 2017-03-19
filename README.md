@@ -22,3 +22,6 @@ Solid State Conduction theory holds that metals, when in a bulk metallic state, 
 <br />
 http://www.theoryofabsolutes.com/photonreflectionindepth.html
 <br />
+<br />
+The interaction of photons with each other is assumed to be next to nothing in this simulation.
+<br />

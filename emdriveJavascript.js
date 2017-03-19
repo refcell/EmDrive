@@ -134,9 +134,16 @@ function processSimulation() {
 	    //reset x,y,z values
 	    //move photon
 	    oldVector = getVector3(mesh.photon);
+	    var theta = Math.tan(y/Math.sqrt(Math.pow(x) + Math.pow(z)));
+	    y = Math.cos(theta) * dist;
+	    var theta2 = Math.tan(z/x);
+	    x = Math.cos(theta2) * (Math.sin(theta) * dist);
+	    z = Math.sin(theta2) * (Math.sin(theta) * dist);
 	    
 	    var newVector = getVector3(mesh.photon); // get new position
             createLine(oldVector, newVector);
+		
+	    //test for corner condition
 	}
 	var coordinate = 'X:' + mesh.photon.position.x + ' Y:' + mesh.photon.position.y + ' Z:' + mesh.photon.position.z;
 	
@@ -152,7 +159,7 @@ function Intersection(){
 	raycaster.set(mesh.photon.position, oldvector);
 	intersects = raycaster.intersectObjects(  );
 	dist = intersects[0].distance;
-	point = intersects[0].point;
+	//point = intersects[0].point;
 }
 
     /**

@@ -9,6 +9,13 @@ var mesh;
 var simulation;
 var scene;
 var mesh; 
+var intersects;
+var dist = 20;
+var oldvector;
+var x = 20;
+var y = 0;
+var z = 0;
+var point;
 
 //http://www.96methods.com/2012/02/three-js-importing-a-model/
 var loader = new THREE.ColladaLoader();
@@ -72,7 +79,6 @@ function animate() {
    render();
 }
     
-//-----------------------------Photon Movement and propagation--------------------------
 /**
 * Initialize Mesh Objects 
 */
@@ -83,8 +89,9 @@ function initMesh() {
     var gPhoton = new THREE.SphereGeometry(5, 8, 6);
     var mPhoton = new THREE.MeshBasicMaterial({ color: 0x2E66FF });
     mesh.photon = new THREE.Mesh(gPhoton, mPhoton);
-	mesh.photon.position.x = 100;//13.97; //half of length of base
-	mesh.photon.position.y = -8.001;
+    mesh.photon.position.x = 100;//13.97; //half of length of base
+    mesh.photon.position.y = -8.001;
+    oldVector = getVector3(mesh.photon);
 	//mesh.photon.position.z doesnt need one because infinite sides
 		
     scene.add(mesh.photon);
@@ -103,45 +110,50 @@ function initMesh() {
     }
 }
 
+//-----------------------------Photon Movement and propagation-------------------------------------------------------------
+
 /**
 * Process Simulation Frame
 *
 * This method proceeds one step of the simulation (60 steps will make 1 second on scene).
 */
 function processSimulation() {
-        simulation.steps++
-        var oldVector = getVector3(mesh.photon); // get old position
-
-        var pxl = inst.simulation.l * SCALE_FACTOR;
-        var theta = 2 * Math.PI * Math.random();
-        var phi = Math.PI - 2 * Math.PI * Math.random();
-        mesh.photon.position.x += pxl * Math.sin(phi) * Math.cos(theta);
-        mesh.photon.position.y += pxl * Math.sin(phi) * Math.sin(theta);
-        mesh.photon.position.z += pxl * Math.cos(phi);
+        simulation.steps++;
+	
+	Intersection();
+	if(dist > 21){
+	    //move photons
+	    oldVector = getVector3(mesh.photon);
+	    mesh.photon.position.x += x;
+            mesh.photon.position.y += y;
+            mesh.photon.position.z += z;
+	    var newVector = getVector3(mesh.photon); // get new position
+            createLine(oldVector, newVector);
+	}
+	else {
+	    //reset x,y,z values
+	    //move photon
+	    oldVector = getVector3(mesh.photon);
+	    
+	    var newVector = getVector3(mesh.photon); // get new position
+            createLine(oldVector, newVector);
+	}
 	var coordinate = 'X:' + mesh.photon.position.x + ' Y:' + mesh.photon.position.y + ' Z:' + mesh.photon.position.z;
 	
-        var newVector = getVector3(mesh.photon); // get new position
-        createLine(oldVector, newVector);
-
         dist = calc3dDistance(mesh.photon);
-        if (dist > 3000) {
-            console.log('Simulation Ended'); // stop simulation and print data
-            simulation.isActive = false;
-            simulation.endTime = new Date().getTime() / 1000;
-            displayStats();
-        }   
+	
 	return coordinate;
     };
 
     /**
-     * Genera Random Number For Star Positioning
-     * 
-     * @return {Number}
+     * Calculate Intersection with emdrive or not
      */
-function rnd() {
-        return Math.floor((Math.random() * 10000) - 5000);
-    };
-
+function Intersection(){
+	raycaster.set(mesh.photon.position, oldvector);
+	intersects = raycaster.intersectObjects(  );
+	dist = intersects[0].distance;
+	point = intersects[0].point;
+}
 
     /**
      * Calculate 3D From Scene Center Point(0, 0, 0)
@@ -183,7 +195,7 @@ function createLine(oldVector, newVector) {
         scene.add(line);
     };
    
-  //-----------------------------Loop Program------------------------------------
+  //-----------------------------Loop Program------------------------------------------------------------------------------
     
      /**
      * Render Loop
@@ -203,6 +215,8 @@ function render() {
      */
     function pause() {
         simulation.isActive = false;
+	displayStats();
+	console.log('Simulation Ended');
     };
 
     /**
@@ -212,7 +226,18 @@ function render() {
         simulation.isActive = true;
     };
     
-  //-----------------------------Data Section------------------------------------  
+
+  //-----------------------------Minor Functions--------------------------------------------------------------------------
+
+    /**
+     * Genera Random Number For Star Positioning
+     * 
+     * @return {Number}
+     */
+function rnd() {
+        return Math.floor((Math.random() * 10000) - 5000);
+    };
+  //-----------------------------Data Section------------------------------------------------------------------------------  
     
     /**
      * Display Simulation Statistics
@@ -234,8 +259,8 @@ function render() {
      * This method is called when the simulation renders and it displays the simulation statistics
      */
     function updateStats(html, command, text) {
-        var html = command + text + html;
-        document.getElementById('statistics').innerHTML = html;
+        var html2 = command + text + html;
+        document.getElementById('statistics').innerHTML = html2;
     };
     
     /**

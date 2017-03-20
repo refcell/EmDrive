@@ -3,6 +3,8 @@
 <br />
 https://abigger87.github.io/EmDrive/index.html
 <br />
+www.emdrive.wiki
+<br />
 Based on the dimensions given in the jpg file labeled EmdriveDimensions.jpg
 <br />
 Modeled in Tinkercad - Convert file format from STL to Collada using www.greentoken.de/onlineconv/

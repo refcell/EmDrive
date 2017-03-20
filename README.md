@@ -3,7 +3,7 @@
 <br />
 https://abigger87.github.io/EmDrive/index.html
 <br />
-www.emdrive.wiki
+http://emdrive.wiki/Main_Page
 <br />
 Based on the dimensions given in the jpg file labeled EmdriveDimensions.jpg
 <br />

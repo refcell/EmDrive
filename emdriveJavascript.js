@@ -10,12 +10,18 @@ var simulation;
 var scene;
 var mesh; 
 var intersects;
+var intersects2;
+var faceUp;
+var faceDown;
 var dist = 20;
+var dist2 = 20;
 var oldvector;
 var x = 20;
 var y = 0;
 var z = 0;
 var point;
+var raycaster = new THREE.Raycaster();
+var raycaster2 = new THREE.Raycaster();
 
 //http://www.96methods.com/2012/02/three-js-importing-a-model/
 var loader = new THREE.ColladaLoader();
@@ -76,6 +82,7 @@ function animate() {
    // Defined in the RequestAnimationFrame.js file, this function
    // means that the animate function is called upon timeout:
    requestAnimationFrame(animate);
+   raycaster.set(mesh.photon.position, oldvector);
    render();
 }
     
@@ -108,6 +115,14 @@ function initMesh() {
         if (calc3dDistance(star) >= STAR_MIN_DISTANCE)
             scene.add(star);
     }
+    var raycasterUp;
+	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
+	var intersectsUp = raycasterUp.intersectObjects(  );
+	faceUp = intersectsUp[0].face;
+    var raycasterDown;
+	raycasterDown.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -20, 0));
+	var intersectsDown = raycasterDown.intersectObjects(  );
+	faceDown = intersectsDown[0].face;
 }
 
 //-----------------------------Photon Movement and propagation-------------------------------------------------------------
@@ -159,6 +174,20 @@ function Intersection(){
 	raycaster.set(mesh.photon.position, oldvector);
 	intersects = raycaster.intersectObjects(  );
 	dist = intersects[0].distance;
+	if(oldvector.x > 0){
+		raycaster2.set(mesh.photon.position, new THREE.Vector3(oldvector.x, 0, 0));
+		intersects2 = raycaster.intersectObjects(  );
+		if((intersects2[0].face != faceDown) && (intersects2[0].face != faceUp))
+		dist = intersects[0].distance;
+	}
+	if(oldvector.y > 0){
+		raycaster2.set(mesh.photon.position, new THREE.Vector3(0, oldvector.y, 0));
+	}
+	if(oldvector.z > 0){
+		raycaster2.set(mesh.photon.position, new THREE.Vector3(0, 0, oldvector.z));
+	}
+	intersects2 = raycaster.intersectObjects(  );
+	dist2 = intersects[0].distance;
 	//point = intersects[0].point;
 }
 

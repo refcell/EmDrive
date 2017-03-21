@@ -152,7 +152,7 @@ function processSimulation() {
 	    oldVector = getVector3(mesh.photon);
 	    mesh.photon.position = intersectionpoint;
 	    createLine(oldVector, newVector);
-	    oldVector = new THREE.Vector3(x, y, z);
+	    oldVector = getVector3(mesh.photon);
 	    Intersection();
 	    if(dist > 21)
 	    {
@@ -160,6 +160,11 @@ function processSimulation() {
             	mesh.photon.position.y += y;
             	mesh.photon.position.z += z;
 		createLine(oldVector, newVector);
+	    }
+	    else if(dist == -1) {
+		mesh.photon.position.x += x;
+            	mesh.photon.position.y += y;
+            	mesh.photon.position.z += z;
 	    }
 	    else{
 		oldVector = getVector3(mesh.photon);
@@ -194,20 +199,28 @@ function processSimulation() {
 function Intersection(){
 	raycaster.set(mesh.photon.position, oldvector);
 	intersects = raycaster.intersectObjects(  );
-	dist = intersects[0].distance;
-	intersectionpoint = intersects[0].point;
-	if((intersects[0].face == faceUp) || (intersects[0].face == faceDown)){
-	    raycaster2.set(mesh.photon.position, new THREE.Vector3(0, 0, oldvector.y));
-	    intersects2 = raycaster2.intersectObjects(  );
-	    dist2 = intersects2[0].distance;
-	    y = -y;
+	if(intersects.length > 0){
+	        dist = intersects[0].distance;
+		intersectionpoint = intersects[0].point;
+		if((intersects[0].face == faceUp) || (intersects[0].face == faceDown)){
+		    raycaster2.set(mesh.photon.position, new THREE.Vector3(0, 0, oldvector.y));
+		    intersects2 = raycaster2.intersectObjects(  );
+		    dist2 = intersects2[0].distance;
+		    y = -y;
+		}
+		else{
+		    raycaster2.set(mesh.photon.position, new THREE.Vector3(oldvector.x, oldvector.z, 0));
+		    intersects2 = raycaster2.intersectObjects(  );
+		    dist2 = intersects2[0].distance;
+		    x = -x;
+		    z = -z;
+		}
 	}
 	else{
-	    raycaster2.set(mesh.photon.position, new THREE.Vector3(oldvector.x, oldvector.z, 0));
-	    intersects2 = raycaster2.intersectObjects(  );
-	    dist2 = intersects2[0].distance;
 	    x = -x;
+	    y = -y;
 	    z = -z;
+	    dist = -1;
 	}
 }
 

@@ -11,6 +11,7 @@ var scene;
 var mesh; 
 var intersects;
 var intersects2;
+var intersectionpoint;
 var faceUp;
 var faceDown;
 var dist = 20;
@@ -149,14 +150,34 @@ function processSimulation() {
 	    //reset x,y,z values
 	    //move photon
 	    oldVector = getVector3(mesh.photon);
-	    var theta = Math.tan(y/Math.sqrt(Math.pow(x) + Math.pow(z)));
+	    mesh.photon.position = intersectionpoint;
+	    createLine(oldVector, newVector);
+	    oldVector = new THREE.Vector3(x, y, z);
+	    Intersection();
+	    if(dist > 21)
+	    {
+	        mesh.photon.position.x += x;
+            	mesh.photon.position.y += y;
+            	mesh.photon.position.z += z;
+		createLine(oldVector, newVector);
+	    }
+	    else{
+		oldVector = getVector3(mesh.photon);
+	    	mesh.photon.position = intersectionpoint;
+	    	createLine(oldVector, newVector);
+		oldVector = getVector3(mesh.photon);
+		mesh.photon.position.x += x;
+            	mesh.photon.position.y += y;
+            	mesh.photon.position.z += z;
+	    }
+	    /*var theta = Math.tan(y/Math.sqrt(Math.pow(x) + Math.pow(z)));
 	    y = Math.cos(theta) * dist;
 	    var theta2 = Math.tan(z/x);
 	    x = Math.cos(theta2) * (Math.sin(theta) * dist);
 	    z = Math.sin(theta2) * (Math.sin(theta) * dist);
 	    
 	    var newVector = getVector3(mesh.photon); // get new position
-            createLine(oldVector, newVector);
+            createLine(oldVector, newVector);*/
 		
 	    //test for corner condition
 	}
@@ -174,21 +195,20 @@ function Intersection(){
 	raycaster.set(mesh.photon.position, oldvector);
 	intersects = raycaster.intersectObjects(  );
 	dist = intersects[0].distance;
-	if(oldvector.x > 0){
-		raycaster2.set(mesh.photon.position, new THREE.Vector3(oldvector.x, 0, 0));
-		intersects2 = raycaster.intersectObjects(  );
-		if((intersects2[0].face != faceDown) && (intersects2[0].face != faceUp))
-		dist = intersects[0].distance;
+	intersectionpoint = intersects[0].point;
+	if((intersects[0].face == faceUp) || (intersects[0].face == faceDown)){
+	    raycaster2.set(mesh.photon.position, new THREE.Vector3(0, 0, oldvector.y));
+	    intersects2 = raycaster2.intersectObjects(  );
+	    dist2 = intersects2[0].distance;
+	    y = -y;
 	}
-	if(oldvector.y > 0){
-		raycaster2.set(mesh.photon.position, new THREE.Vector3(0, oldvector.y, 0));
+	else{
+	    raycaster2.set(mesh.photon.position, new THREE.Vector3(oldvector.x, oldvector.z, 0));
+	    intersects2 = raycaster2.intersectObjects(  );
+	    dist2 = intersects2[0].distance;
+	    x = -x;
+	    z = -z;
 	}
-	if(oldvector.z > 0){
-		raycaster2.set(mesh.photon.position, new THREE.Vector3(0, 0, oldvector.z));
-	}
-	intersects2 = raycaster.intersectObjects(  );
-	dist2 = intersects[0].distance;
-	//point = intersects[0].point;
 }
 
     /**

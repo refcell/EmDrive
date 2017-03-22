@@ -1,6 +1,6 @@
 var inst = this;
 var dae;
-var loader;
+var mesh8;
 var scene;
 var camera;
 var controls;
@@ -24,8 +24,19 @@ var point;
 var raycaster = new THREE.Raycaster();
 var raycaster2 = new THREE.Raycaster();
 
+var loader = new THREE.JSONLoader();
+loader.load('EmDriveModel.json', function(geometry, materials) {
+      mesh8 = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
+      mesh8.translation = THREE.GeometryUtils.center(geometry);
+      mesh8.position.x = 0;
+      mesh8.position.y = 0;
+      mesh8.position.z = 0;
+      init();
+      animate();
+});
+
 //http://www.96methods.com/2012/02/three-js-importing-a-model/
-var loader = new THREE.ColladaLoader();
+/*var loader = new THREE.ColladaLoader();
 loader.options.convertUpAxis = true;
 loader.load('EmDriveModel.dae', function ( collada ) 
 { 
@@ -35,7 +46,7 @@ loader.load('EmDriveModel.dae', function ( collada )
     dae.updateMatrix();
     init();
     animate();
-});
+});*/
 
 //http://stackoverflow.com/questions/15025319/changing-texture-and-color-on-three-js-collada-object
 var setMaterial = function(node, material) {
@@ -66,7 +77,8 @@ function init() {
    controls = new THREE.OrbitControls(camera);
    controls.damping = 0.2;
    scene.add(camera)
-   scene.add(dae);
+   //scene.add(dae);
+   scene.add(mesh8);
 	
    // initialize mesh and render
    simulation = new Object();
@@ -118,11 +130,11 @@ function initMesh() {
     }
     var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
-	var intersectsUp = raycasterUp.intersectObjects(dae);
+	var intersectsUp = raycasterUp.intersectObjects(mesh8);
 	faceUp = intersectsUp[0].face;
     var raycasterDown = new THREE.Raycaster();
 	raycasterDown.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -20, 0));
-	var intersectsDown = raycasterDown.intersectObjects(dae);
+	var intersectsDown = raycasterDown.intersectObjects(mesh8);
 	faceDown = intersectsDown[0].face;
 }
 
@@ -198,19 +210,19 @@ function processSimulation() {
      */
 function Intersection(){
 	raycaster.set(mesh.photon.position, oldvector);
-	intersects = raycaster.intersectObjects(dae);
+	intersects = raycaster.intersectObjects(mesh8);
 	if(intersects.length > 0){
 	        dist = intersects[0].distance;
 		intersectionpoint = intersects[0].point;
 		if((intersects[0].face == faceUp) || (intersects[0].face == faceDown)){
 		    raycaster2.set(mesh.photon.position, new THREE.Vector3(0, 0, oldvector.y));
-		    intersects2 = raycaster2.intersectObjects(dae);
+		    intersects2 = raycaster2.intersectObjects(mesh8);
 		    dist2 = intersects2[0].distance;
 		    y = -y;
 		}
 		else{
 		    raycaster2.set(mesh.photon.position, new THREE.Vector3(oldvector.x, oldvector.z, 0));
-		    intersects2 = raycaster2.intersectObjects(dae);
+		    intersects2 = raycaster2.intersectObjects(mesh8);
 		    dist2 = intersects2[0].distance;
 		    x = -x;
 		    z = -z;

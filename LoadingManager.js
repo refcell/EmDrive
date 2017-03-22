@@ -70,4 +70,4 @@ function LoadingManager( onLoad, onProgress, onError ) {
 var DefaultLoadingManager = new LoadingManager();
 
 
-export { DefaultLoadingManager, LoadingManager };
+//export { DefaultLoadingManager, LoadingManager };

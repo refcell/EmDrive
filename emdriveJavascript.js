@@ -1,6 +1,6 @@
 var inst = this;
 var dae;
-var mesh8;
+var object;
 var scene;
 var camera;
 var controls;
@@ -26,7 +26,6 @@ var raycaster2 = new THREE.Raycaster();
 var objects = [];
 var manager = new THREE.LoadingManager();
 var loader = new THREE.OBJLoader(manager);
-var objecttest;
 loader.load('EmDriveModel.obj', function(object) {
       object.traverse( function ( child ) {
            if ( child instanceof THREE.Mesh ) {
@@ -41,7 +40,6 @@ loader.load('EmDriveModel.obj', function(object) {
       object.position.x = 0;
       object.position.y = 0;
       object.position.z = 0;
-      objecttest = object;
       init();
       animate();
 });
@@ -100,7 +98,7 @@ function init() {
    controls.damping = 0.2;
    scene.add(camera)
    //scene.add(dae);
-   scene.add(objecttest);
+   scene.add(object);
 	
    // initialize mesh and render
    simulation = new Object();
@@ -152,11 +150,11 @@ function initMesh() {
     }
     var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
-	var intersectsUp = raycasterUp.intersectObjects(objecttest);
+	var intersectsUp = raycasterUp.intersectObjects(object);
 	faceUp = intersectsUp[0].face;
     var raycasterDown = new THREE.Raycaster();
 	raycasterDown.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -20, 0));
-	var intersectsDown = raycasterDown.intersectObjects(objecttest);
+	var intersectsDown = raycasterDown.intersectObjects(object);
 	faceDown = intersectsDown[0].face;
 }
 
@@ -232,19 +230,19 @@ function processSimulation() {
      */
 function Intersection(){
 	raycaster.set(mesh.photon.position, oldvector);
-	intersects = raycaster.intersectObjects(objecttest);
+	intersects = raycaster.intersectObjects(object);
 	if(intersects.length > 0){
 	        dist = intersects[0].distance;
 		intersectionpoint = intersects[0].point;
 		if((intersects[0].face == faceUp) || (intersects[0].face == faceDown)){
 		    raycaster2.set(mesh.photon.position, new THREE.Vector3(0, 0, oldvector.y));
-		    intersects2 = raycaster2.intersectObjects(objecttest);
+		    intersects2 = raycaster2.intersectObjects(object);
 		    dist2 = intersects2[0].distance;
 		    y = -y;
 		}
 		else{
 		    raycaster2.set(mesh.photon.position, new THREE.Vector3(oldvector.x, oldvector.z, 0));
-		    intersects2 = raycaster2.intersectObjects(objecttest);
+		    intersects2 = raycaster2.intersectObjects(object);
 		    dist2 = intersects2[0].distance;
 		    x = -x;
 		    z = -z;

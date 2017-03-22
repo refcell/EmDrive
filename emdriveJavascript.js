@@ -47,7 +47,7 @@ loader.load('EmDriveModel.dae', function ( collada )
     dae.updateMatrix();
     init();
     animate();
-});*/
+});
 
 //http://stackoverflow.com/questions/15025319/changing-texture-and-color-on-three-js-collada-object
 var setMaterial = function(node, material) {
@@ -57,7 +57,7 @@ var setMaterial = function(node, material) {
       setMaterial(node.children[i], material);
     }
   }
-}
+}*/
 // constants
 var STAR_COUNT = 1000;
 var EMDRIVEMINDISTANCE = 3000;
@@ -321,8 +321,8 @@ function render() {
      * Resume Simulation
      */
     function resume() {
+	simulation.isActive = true;
 	init();
-        simulation.isActive = true;
     };
     
 

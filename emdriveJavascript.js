@@ -24,25 +24,6 @@ var point;
 var raycaster = new THREE.Raycaster();
 var raycaster2 = new THREE.Raycaster();
 var objects = [];
-var manager = new THREE.LoadingManager();
-var loader = new THREE.OBJLoader(manager);
-loader.load('EmDriveModel.obj', function(object) {
-      object.traverse( function ( child ) {
-           if ( child instanceof THREE.Mesh ) {
-                 console.log("instance");
-                 child.geometry.computeFaceNormals();
-                 child.material = new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, opacity: 0.5 } );
-                 child.material.side = THREE.DoubleSided;
-           }
-
-      } );
-      objects.push(object);
-      object.position.x = 0;
-      object.position.y = 0;
-      object.position.z = 0;
-      init();
-      animate();
-});
 
 /*var loader = new THREE.JSONLoader();
 loader.load('EmDriveModel2.json', function(geometry, materials) {
@@ -98,7 +79,24 @@ function init() {
    controls.damping = 0.2;
    scene.add(camera)
    //scene.add(dae);
-   scene.add(object);
+	var manager = new THREE.LoadingManager();
+	var loader = new THREE.OBJLoader(manager);
+	loader.load('EmDriveModel.obj', function(object) {
+	      object.traverse( function ( child ) {
+		   if ( child instanceof THREE.Mesh ) {
+			 console.log("instance");
+			 child.geometry.computeFaceNormals();
+			 child.material = new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, opacity: 0.5 } );
+			 child.material.side = THREE.DoubleSided;
+		   }
+
+	      } );
+	      objects.push(object);
+	      object.position.x = 0;
+	      object.position.y = 0;
+	      object.position.z = 0;
+	      scene.add(object);
+	});
 	
    // initialize mesh and render
    simulation = new Object();
@@ -109,6 +107,7 @@ function init() {
    initMesh();
    displayStats();
    displayHint();
+   animate();
 };
     
 function animate() {
@@ -150,11 +149,11 @@ function initMesh() {
     }
     var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
-	var intersectsUp = raycasterUp.intersectObjects(object);
+	var intersectsUp = raycasterUp.intersectObjects(objects, true);
 	faceUp = intersectsUp[0].face;
     var raycasterDown = new THREE.Raycaster();
 	raycasterDown.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -20, 0));
-	var intersectsDown = raycasterDown.intersectObjects(object);
+	var intersectsDown = raycasterDown.intersectObjects(objects, true);
 	faceDown = intersectsDown[0].face;
 }
 
@@ -230,19 +229,19 @@ function processSimulation() {
      */
 function Intersection(){
 	raycaster.set(mesh.photon.position, oldvector);
-	intersects = raycaster.intersectObjects(object);
+	intersects = raycaster.intersectObjects(objects, true);
 	if(intersects.length > 0){
 	        dist = intersects[0].distance;
 		intersectionpoint = intersects[0].point;
 		if((intersects[0].face == faceUp) || (intersects[0].face == faceDown)){
 		    raycaster2.set(mesh.photon.position, new THREE.Vector3(0, 0, oldvector.y));
-		    intersects2 = raycaster2.intersectObjects(object);
+		    intersects2 = raycaster2.intersectObjects(objects, true);
 		    dist2 = intersects2[0].distance;
 		    y = -y;
 		}
 		else{
 		    raycaster2.set(mesh.photon.position, new THREE.Vector3(oldvector.x, oldvector.z, 0));
-		    intersects2 = raycaster2.intersectObjects(object);
+		    intersects2 = raycaster2.intersectObjects(objects, true);
 		    dist2 = intersects2[0].distance;
 		    x = -x;
 		    z = -z;

@@ -81,7 +81,6 @@ function init() {
    //scene.add(dae);
 	var manager = new THREE.LoadingManager();
 	var loader = new THREE.OBJLoader(manager);
-	loader.options.convertUpAxis = true;
 	loader.load('EmDriveModel.obj', function(object) {
 	      object.traverse( function ( child ) {
 		   if ( child instanceof THREE.Mesh ) {

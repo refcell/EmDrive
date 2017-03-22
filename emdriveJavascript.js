@@ -304,7 +304,7 @@ function createLine(oldVector, newVector) {
 function render() {
         requestAnimationFrame(render);
         if (simulation.isActive) {
-            var coordinate = processSimulation();
+            var coordinate = 0;//processSimulation();
 	    var command = '<p style="color:purple;">Photon Moved</p>';
             updateStats(document.getElementById('statistics').innerHTML, command, coordinate);
 	}

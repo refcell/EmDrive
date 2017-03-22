@@ -98,7 +98,7 @@ function init() {
 	
    // initialize mesh and render
    simulation = new Object();
-   simulation.isActive = false;
+   simulation.isActive = true;
    simulation.steps = 0;
    simulation.startTime = new Date().getTime() / 1000;
    simulation.l = 1 / (SUN_OPACITY * SUN_DENSITY);
@@ -321,7 +321,6 @@ function render() {
      * Resume Simulation
      */
     function resume() {
-	simulation.isActive = true;
 	init();
     };
     

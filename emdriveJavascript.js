@@ -118,11 +118,11 @@ function initMesh() {
     }
     var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
-	var intersectsUp = raycasterUp.intersectObjects(  );
+	var intersectsUp = raycasterUp.intersectObjects(dae);
 	faceUp = intersectsUp[0].face;
     var raycasterDown = new THREE.Raycaster();
 	raycasterDown.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -20, 0));
-	var intersectsDown = raycasterDown.intersectObjects(  );
+	var intersectsDown = raycasterDown.intersectObjects(dae);
 	faceDown = intersectsDown[0].face;
 }
 

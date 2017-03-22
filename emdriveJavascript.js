@@ -323,6 +323,7 @@ function render() {
      * Resume Simulation
      */
     function resume() {
+	init();
         simulation.isActive = true;
     };
     

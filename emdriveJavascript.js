@@ -25,7 +25,7 @@ var raycaster = new THREE.Raycaster();
 var raycaster2 = new THREE.Raycaster();
 
 var loader = new THREE.JSONLoader();
-loader.load('EmDriveModel.json', function(geometry, materials) {
+loader.load('EmDriveModel2.json', function(geometry, materials) {
       mesh8 = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
       mesh8.translation = THREE.GeometryUtils.center(geometry);
       mesh8.position.x = 0;

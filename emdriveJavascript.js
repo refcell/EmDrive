@@ -116,11 +116,11 @@ function initMesh() {
         if (calc3dDistance(star) >= STAR_MIN_DISTANCE)
             scene.add(star);
     }
-    var raycasterUp;
+    var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
 	var intersectsUp = raycasterUp.intersectObjects(  );
 	faceUp = intersectsUp[0].face;
-    var raycasterDown;
+    var raycasterDown = new THREE.Raycaster();
 	raycasterDown.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -20, 0));
 	var intersectsDown = raycasterDown.intersectObjects(  );
 	faceDown = intersectsDown[0].face;

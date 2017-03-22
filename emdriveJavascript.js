@@ -151,11 +151,11 @@ function initMesh() {
     var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
 	var intersectsUp = raycasterUp.intersectObjects(objects, true);
-	faceUp = intersectsUp[0].face;
+	//faceUp = intersectsUp[0].face;
     var raycasterDown = new THREE.Raycaster();
 	raycasterDown.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -20, 0));
 	var intersectsDown = raycasterDown.intersectObjects(objects, true);
-	faceDown = intersectsDown[0].face;
+	//faceDown = intersectsDown[0].face;
 }
 
 //-----------------------------Photon Movement and propagation-------------------------------------------------------------
@@ -232,18 +232,18 @@ function Intersection(){
 	raycaster.set(mesh.photon.position, oldvector);
 	intersects = raycaster.intersectObjects(objects, true);
 	if(intersects.length > 0){
-	        dist = intersects[0].distance;
-		intersectionpoint = intersects[0].point;
+	        //dist = intersects[0].distance;
+		//intersectionpoint = intersects[0].point;
 		if((intersects[0].face == faceUp) || (intersects[0].face == faceDown)){
 		    raycaster2.set(mesh.photon.position, new THREE.Vector3(0, 0, oldvector.y));
 		    intersects2 = raycaster2.intersectObjects(objects, true);
-		    dist2 = intersects2[0].distance;
+		    //dist2 = intersects2[0].distance;
 		    y = -y;
 		}
 		else{
 		    raycaster2.set(mesh.photon.position, new THREE.Vector3(oldvector.x, oldvector.z, 0));
 		    intersects2 = raycaster2.intersectObjects(objects, true);
-		    dist2 = intersects2[0].distance;
+		    //dist2 = intersects2[0].distance;
 		    x = -x;
 		    z = -z;
 		}

@@ -86,7 +86,7 @@ function init() {
 		   if ( child instanceof THREE.Mesh ) {
 			 console.log("instance");
 			 child.geometry.computeFaceNormals();
-			 child.material = new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, opacity: 0.5 } );
+			 child.material = new THREE.MeshBasicMaterial( { color: 0xffffff} );
 			 child.material.side = THREE.DoubleSided;
 		   }
 

@@ -112,7 +112,7 @@ function animate() {
    // Defined in the RequestAnimationFrame.js file, this function
    // means that the animate function is called upon timeout:
    requestAnimationFrame(animate);
-   raycaster.set(mesh.photon.position, oldvector);
+   //raycaster.set(mesh.photon.position, oldvector);
    render();
 }
     

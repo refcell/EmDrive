@@ -95,6 +95,7 @@ function init() {
 	      object.position.x = 0;
 	      object.position.y = 0;
 	      object.position.z = 0;
+	      object.scale.set(100,100,100);
 	      scene.add(object);
 	});
 	

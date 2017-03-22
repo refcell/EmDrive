@@ -24,7 +24,7 @@ var point;
 var raycaster = new THREE.Raycaster();
 var raycaster2 = new THREE.Raycaster();
 var objects = [];
-
+var manager = new THREE.LoadingManager();
 var loader = new THREE.OBJLoader(manager);
 loader.load('EmDriveModel.obj', function(object) {
       object.traverse( function ( child ) {

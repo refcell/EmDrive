@@ -23,8 +23,28 @@ var z = 0;
 var point;
 var raycaster = new THREE.Raycaster();
 var raycaster2 = new THREE.Raycaster();
+var objects = [];
 
-var loader = new THREE.JSONLoader();
+var loader = new THREE.OBJLoader(manager);
+loader.load('EmDriveModel.obj', function(object) {
+      object.traverse( function ( child ) {
+           if ( child instanceof THREE.Mesh ) {
+                 console.log("instance");
+                 child.geometry.computeFaceNormals();
+                 child.material = new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, opacity: 0.5 } );
+                 child.material.side = THREE.DoubleSided;
+           }
+
+      } );
+      objects.push(object);
+      object.position.x = 0;
+      object.position.y = 0;
+      object.position.z = 0;
+      init();
+      animate();
+});
+
+/*var loader = new THREE.JSONLoader();
 loader.load('EmDriveModel2.json', function(geometry, materials) {
       mesh8 = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
       mesh8.translation = THREE.GeometryUtils.center(geometry);
@@ -33,7 +53,7 @@ loader.load('EmDriveModel2.json', function(geometry, materials) {
       mesh8.position.z = 0;
       init();
       animate();
-});
+});*/
 
 //http://www.96methods.com/2012/02/three-js-importing-a-model/
 /*var loader = new THREE.ColladaLoader();

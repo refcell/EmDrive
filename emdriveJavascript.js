@@ -77,10 +77,11 @@ function init() {
    camera.position.z = 1100;
    controls = new THREE.OrbitControls(camera);
    controls.damping = 0.2;
-   scene.add(camera)
+   scene.add(camera);
    //scene.add(dae);
 	var manager = new THREE.LoadingManager();
 	var loader = new THREE.OBJLoader(manager);
+	loader.options.convertUpAxis = true;
 	loader.load('EmDriveModel.obj', function(object) {
 	      object.traverse( function ( child ) {
 		   if ( child instanceof THREE.Mesh ) {
@@ -92,10 +93,7 @@ function init() {
 
 	      } );
 	      objects.push(object);
-	      object.position.x = 0;
-	      object.position.y = 0;
-	      object.position.z = 0;
-	      object.scale.set(100,100,100);
+	      object.scale.x = object.scale.y = object.scale.z = 5; 
 	      scene.add(object);
 	});
 	

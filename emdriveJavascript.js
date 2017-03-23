@@ -25,39 +25,6 @@ var raycaster = new THREE.Raycaster();
 var raycaster2 = new THREE.Raycaster();
 var objects = [];
 
-/*var loader = new THREE.JSONLoader();
-loader.load('EmDriveModel2.json', function(geometry, materials) {
-      mesh8 = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));
-      mesh8.translation = THREE.GeometryUtils.center(geometry);
-      mesh8.position.x = 0;
-      mesh8.position.y = 0;
-      mesh8.position.z = 0;
-      init();
-      animate();
-});*/
-
-//http://www.96methods.com/2012/02/three-js-importing-a-model/
-/*var loader = new THREE.ColladaLoader();
-loader.options.convertUpAxis = true;
-loader.load('EmDriveModel.dae', function ( collada ) 
-{ 
-    dae = collada.scene;
-    setMaterial(dae, new THREE.MeshBasicMaterial({color: 0xCC9933}));
-    dae.scale.x = dae.scale.y = dae.scale.z = 5; 
-    dae.updateMatrix();
-    init();
-    animate();
-});
-
-//http://stackoverflow.com/questions/15025319/changing-texture-and-color-on-three-js-collada-object
-var setMaterial = function(node, material) {
-  node.material = material;
-  if (node.children) {
-    for (var i = 0; i < node.children.length; i++) {
-      setMaterial(node.children[i], material);
-    }
-  }
-}*/
 // constants
 var STAR_COUNT = 1000;
 var EMDRIVEMINDISTANCE = 3000;

@@ -48,24 +48,6 @@ function init() {
    controls.damping = 0.2;
    scene.add(camera);
    //scene.add(dae);
-   //http://stackoverflow.com/questions/22114224/three-js-raycasting-obj
-	var manager = new THREE.LoadingManager();
-	var loader = new THREE.OBJLoader(manager);
-	loader.load('EmDriveModel.obj', function(object) {
-	      object.traverse( function ( child ) {
-		   if ( child instanceof THREE.Mesh ) {
-			 console.log("instance");
-			 child.geometry.computeFaceNormals();
-			 child.material = new THREE.MeshBasicMaterial( { color: 0xCC9933, opacity: 0.5} );
-			 child.material.side = THREE.DoubleSided;
-		   }
-
-	      } );
-	      objects.push(object);
-	      object.scale.x = object.scale.y = object.scale.z = 5; 
-	      scene.add(object);
-	});
-	
    // initialize mesh and render
    simulation = new Object();
    simulation.isActive = true;
@@ -115,6 +97,23 @@ function initMesh() {
         if (calc3dDistance(star) >= STAR_MIN_DISTANCE)
             scene.add(star);
     }
+    //http://stackoverflow.com/questions/22114224/three-js-raycasting-obj
+	var manager = new THREE.LoadingManager();
+	var loader = new THREE.OBJLoader(manager);
+	loader.load('EmDriveModel.obj', function(object) {
+	      object.traverse( function ( child ) {
+		   if ( child instanceof THREE.Mesh ) {
+			 console.log("instance");
+			 child.geometry.computeFaceNormals();
+			 child.material = new THREE.MeshBasicMaterial( { color: 0xCC9933, transparent: true, opacity: 0.5} );
+			 child.material.side = THREE.DoubleSided;
+		   }
+
+	      } );
+	      objects.push(object);
+	      object.scale.x = object.scale.y = object.scale.z = 5; 
+	      scene.add(object);
+	});
     var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
 	var intersectsUp = raycasterUp.intersectObjects(objects, true);

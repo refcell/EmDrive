@@ -79,6 +79,7 @@ function init() {
    controls.damping = 0.2;
    scene.add(camera);
    //scene.add(dae);
+   //http://stackoverflow.com/questions/22114224/three-js-raycasting-obj
 	var manager = new THREE.LoadingManager();
 	var loader = new THREE.OBJLoader(manager);
 	loader.load('EmDriveModel.obj', function(object) {

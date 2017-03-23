@@ -21,6 +21,8 @@ var x = 20;
 var y = 0;
 var z = 0;
 var point;
+//https://threejs.org/docs/#Reference/Core/Raycaster
+//https://threejs.org/docs/api/core/Raycaster.html
 var raycaster = new THREE.Raycaster();
 var raycaster2 = new THREE.Raycaster();
 var objects = [];
@@ -192,6 +194,7 @@ function processSimulation() {
 
     /**
      * Calculate Intersection with emdrive or not
+     *https://gist.github.com/nickjanssen/de388ae1090a16bb43ce
      */
 function Intersection(){
 	raycaster.set(mesh.photon.position, oldvector);

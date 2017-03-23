@@ -96,7 +96,7 @@ function initMesh() {
     var gPhoton = new THREE.SphereGeometry(5, 8, 6);
     var mPhoton = new THREE.MeshBasicMaterial({ color: 0x2E66FF });
     mesh.photon = new THREE.Mesh(gPhoton, mPhoton);
-    mesh.photon.position.x = 90;//13.97; //half of length of base
+    mesh.photon.position.x = 80;//13.97; //half of length of base
     mesh.photon.position.y = -8.001;
     oldVector = getVector3(mesh.photon);
 	//mesh.photon.position.z doesnt need one because infinite sides

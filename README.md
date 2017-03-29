@@ -13,6 +13,8 @@ Orbital controls used from https://github.com/alextselegidis/random-walk-simulat
 <br />
 Raycaster three js API tutorial: https://threejs.org/docs/api/core/Raycaster.html
 <br /> 
+Software to cnovert between various 3d file types: http://www.meshlab.net/
+<br /> 
 A special thanks to mrdoob for the collada loader tutorials and information
 <br />
 <hr />

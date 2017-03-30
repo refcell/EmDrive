@@ -78,7 +78,7 @@ function initMesh() {
     var gPhoton = new THREE.SphereGeometry(5, 8, 6);
     var mPhoton = new THREE.MeshBasicMaterial({ color: 0x2E66FF });
     mesh.photon = new THREE.Mesh(gPhoton, mPhoton);
-    mesh.photon.position.x = 80;//13.97; //half of length of base
+    mesh.photon.position.x = 75;//13.97; //half of length of base
     mesh.photon.position.y = -8.001;
     oldVector = getVector3(mesh.photon);
 	//mesh.photon.position.z doesnt need one because infinite sides
@@ -133,7 +133,7 @@ function initMesh() {
 */
 function processSimulation() {
         simulation.steps++;
-	
+	console.log("1processSimulation");
 	Intersection();
 	if(dist > 21){
 	    //move photons
@@ -196,9 +196,11 @@ function processSimulation() {
      *https://gist.github.com/nickjanssen/de388ae1090a16bb43ce
      */
 function Intersection(){
+	console.log("2 Intersection Function Called");
 	raycaster.set(mesh.photon.position, oldvector);
 	intersects = raycaster.intersectObjects(objects, true);
 	if(intersects.length > 0){
+		console.log("3 intersects.length > 0");
 	        //dist = intersects[0].distance;
 		//intersectionpoint = intersects[0].point;
 		if((intersects[0].face == faceUp) || (intersects[0].face == faceDown)){

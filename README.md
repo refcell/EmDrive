@@ -15,6 +15,8 @@ Raycaster three js API tutorial: https://threejs.org/docs/api/core/Raycaster.htm
 <br /> 
 Software to cnovert between various 3d file types: http://www.meshlab.net/
 <br /> 
+Transparency of OBJ Model: http://learningwebgl.com/blog/?p=859
+<br />
 A special thanks to mrdoob for the collada loader tutorials and information
 <br />
 <hr />

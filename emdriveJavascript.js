@@ -83,7 +83,7 @@ function initMesh() {
     mesh.photon.position.y = -8.001;
     mesh.photon.position.z = 0;	
     scene.add(mesh.photon);
-    oldVector = getVector3(mesh.photon);
+    oldvector = getVector3(mesh.photon);
 	
     // random background stars
     for (var i=0; i < STAR_COUNT; i++) {
@@ -138,27 +138,27 @@ function processSimulation() {
 	Intersection();
 	if(dist > 21){
 	    //move photons
-	    oldVector = getVector3(mesh.photon);
+	    oldvector = getVector3(mesh.photon);
 	    mesh.photon.position.x += x;
             mesh.photon.position.y += y;
             mesh.photon.position.z += z;
 	    var newVector = getVector3(mesh.photon); // get new position
-            createLine(oldVector, newVector);
+            createLine(oldvector, newVector);
 	}
 	else {
 	    //reset x,y,z values
 	    //move photon
-	    oldVector = getVector3(mesh.photon);
+	    oldvector = getVector3(mesh.photon);
 	    mesh.photon.position = intersectionpoint;
-	    createLine(oldVector, newVector);
-	    oldVector = getVector3(mesh.photon);
+	    createLine(oldvector, newVector);
+	    oldvector = getVector3(mesh.photon);
 	    Intersection();
 	    if(dist > 21)
 	    {
 	        mesh.photon.position.x += x;
             	mesh.photon.position.y += y;
             	mesh.photon.position.z += z;
-		createLine(oldVector, newVector);
+		createLine(oldvector, newVector);
 	    }
 	    else if(dist == -1) {
 		mesh.photon.position.x += x;
@@ -166,10 +166,10 @@ function processSimulation() {
             	mesh.photon.position.z += z;
 	    }
 	    else{
-		oldVector = getVector3(mesh.photon);
+		oldvector = getVector3(mesh.photon);
 	    	mesh.photon.position = intersectionpoint;
-	    	createLine(oldVector, newVector);
-		oldVector = getVector3(mesh.photon);
+	    	createLine(oldvector, newVector);
+		oldvector = getVector3(mesh.photon);
 		mesh.photon.position.x += x;
             	mesh.photon.position.y += y;
             	mesh.photon.position.z += z;

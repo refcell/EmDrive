@@ -81,10 +81,10 @@ function initMesh() {
     mesh.photon = new THREE.Mesh(gPhoton, mPhoton);
     mesh.photon.position.x = 75;//13.97; //half of length of base
     mesh.photon.position.y = -8.001;
-    oldVector = getVector3(mesh.photon);
 	//mesh.photon.position.z doesnt need one because infinite sides
 		
     scene.add(mesh.photon);
+	oldVector = getVector3(mesh.photon);
     // random background stars
     for (var i=0; i < STAR_COUNT; i++) {
         var gStar = new THREE.SphereGeometry(6, 8, 6);

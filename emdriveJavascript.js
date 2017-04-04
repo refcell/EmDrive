@@ -187,6 +187,7 @@ function processSimulation() {
 	}
 	coordinate = 'X:' + mesh.photon.position.x + ' Y:' + mesh.photon.position.y + ' Z:' + mesh.photon.position.z;
         dist = calc3dDistance(mesh.photon);
+	console.log(dist);
     };
 
     /**

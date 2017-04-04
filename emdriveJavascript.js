@@ -271,15 +271,13 @@ function createLine(oldVector, newVector) {
      * Render Loop
      */
 function render() {
-	setTimeout(function(){
-		requestAnimationFrame(render);
-		if (simulation.isActive) {
-		    var coordinate = 0;//processSimulation();
-		    var command = '<p style="color:purple;">Photon Moved</p>';
-		    updateStats(document.getElementById('statistics').innerHTML, command, coordinate);
-		}
-		renderer.render(scene, camera);
-	}, 5000); 
+	requestAnimationFrame(render);
+	if (simulation.isActive) {
+		var coordinate = processSimulation();
+		var command = '<p style="color:purple;">Photon Moved</p>';
+		updateStats(document.getElementById('statistics').innerHTML, command, coordinate);
+	}
+	renderer.render(scene, camera); 
     };
     
     /**

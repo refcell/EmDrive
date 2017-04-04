@@ -129,10 +129,10 @@ function initMesh() {
 
 /**
 * Process Simulation Frame
-*
+*setTimeout(,5000);
 * This method proceeds one step of the simulation (60 steps will make 1 second on scene).
 */
-setTimeout(function processSimulation() {
+function processSimulation() {
         simulation.steps++;
 	console.log("1processSimulation");
 	Intersection();
@@ -187,7 +187,7 @@ setTimeout(function processSimulation() {
 	}
 	coordinate = 'X:' + mesh.photon.position.x + ' Y:' + mesh.photon.position.y + ' Z:' + mesh.photon.position.z;
         dist = calc3dDistance(mesh.photon);
-    },5000);
+    };
 
     /**
      * Calculate Intersection with emdrive or not

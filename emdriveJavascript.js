@@ -283,7 +283,8 @@ function render() {
     
 function simulationActive() {
 	simulation.isActive = true;
-}
+	console.log("the simulation is active");
+};
     /**
      * Pause Simulation
      */

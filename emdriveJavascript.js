@@ -275,10 +275,15 @@ function render() {
 		coordinate = processSimulation();
 		var command = '<p style="color:purple;">Photon Moved</p>';
 		updateStats(document.getElementById('statistics').innerHTML, command, coordinate);
+		simulation.isActive = false;
+		setTimeout(simulationActive(), 5000);
 	}
 	renderer.render(scene, camera); 
     };
     
+function simulationActive() {
+	simulation.isActive = true;
+}
     /**
      * Pause Simulation
      */

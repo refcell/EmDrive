@@ -132,7 +132,7 @@ function initMesh() {
 *
 * This method proceeds one step of the simulation (60 steps will make 1 second on scene).
 */
-function processSimulation() {
+setTimeout(function processSimulation() {
         simulation.steps++;
 	console.log("1processSimulation");
 	Intersection();
@@ -187,7 +187,7 @@ function processSimulation() {
 	}
 	coordinate = 'X:' + mesh.photon.position.x + ' Y:' + mesh.photon.position.y + ' Z:' + mesh.photon.position.z;
         dist = calc3dDistance(mesh.photon);
-    };
+    };, 5000);
 
     /**
      * Calculate Intersection with emdrive or not
@@ -276,7 +276,6 @@ function render() {
 		var command = '<p style="color:purple;">Photon Moved</p>';
 		updateStats(document.getElementById('statistics').innerHTML, command, coordinate);
 	}
-	setTimeout(render, 5000);
 	renderer.render(scene, camera); 
     };
     

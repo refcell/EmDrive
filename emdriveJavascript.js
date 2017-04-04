@@ -12,6 +12,7 @@ var mesh;
 var intersects;
 var intersects2;
 var intersectionpoint;
+var coordinate;
 var faceUp;
 var faceDown;
 var dist = 20;
@@ -184,7 +185,7 @@ function processSimulation() {
 		
 	    //test for corner condition
 	}
-	var coordinate = 'X:' + mesh.photon.position.x + ' Y:' + mesh.photon.position.y + ' Z:' + mesh.photon.position.z;
+	coordinate = 'X:' + mesh.photon.position.x + ' Y:' + mesh.photon.position.y + ' Z:' + mesh.photon.position.z;
 	
         dist = calc3dDistance(mesh.photon);
 	
@@ -274,7 +275,7 @@ function render() {
 	setTimeout(function(){
 	requestAnimationFrame(render);
 	if (simulation.isActive) {
-		var coordinate = processSimulation();
+		coordinate = processSimulation();
 		var command = '<p style="color:purple;">Photon Moved</p>';
 		updateStats(document.getElementById('statistics').innerHTML, command, coordinate);
 	}

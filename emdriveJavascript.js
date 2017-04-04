@@ -196,7 +196,7 @@ function processSimulation() {
 function Intersection(){
 	console.log("2 Intersection Function Called");
 	console.log(oldvector);
-	raycaster.set(mesh.photon.position, oldvector);
+	raycaster.set(mesh.photon.position, new THREE.Vector3(-oldvector.x, -oldvector.y, -oldvector.z));
 	intersects = raycaster.intersectObjects(objects, true);
 	if(intersects.length > 0){
 		console.log("3 intersects.length > 0");

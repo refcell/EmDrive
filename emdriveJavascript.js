@@ -186,10 +186,7 @@ function processSimulation() {
 	    //test for corner condition
 	}
 	coordinate = 'X:' + mesh.photon.position.x + ' Y:' + mesh.photon.position.y + ' Z:' + mesh.photon.position.z;
-	
         dist = calc3dDistance(mesh.photon);
-	
-	return coordinate;
     };
 
     /**
@@ -272,15 +269,14 @@ function createLine(oldVector, newVector) {
      * Render Loop
      */
 function render() {
-	setTimeout(function(){
 	requestAnimationFrame(render);
 	if (simulation.isActive) {
 		coordinate = processSimulation();
 		var command = '<p style="color:purple;">Photon Moved</p>';
 		updateStats(document.getElementById('statistics').innerHTML, command, coordinate);
 	}
+	setTimeout(render, 5000);
 	renderer.render(scene, camera); 
-	}, 5000);
     };
     
     /**

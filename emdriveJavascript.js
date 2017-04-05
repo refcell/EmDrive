@@ -218,6 +218,7 @@ function Intersection(){
 		}
 	}
 	else{
+		console.log("The distance is not working!");
 	    x = -x;
 	    y = -y;
 	    z = -z;

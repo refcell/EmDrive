@@ -79,8 +79,8 @@ function initMesh() {
     var gPhoton = new THREE.SphereGeometry(5, 8, 6);
     var mPhoton = new THREE.MeshBasicMaterial({ color: 0x2E66FF });
     mesh.photon = new THREE.Mesh(gPhoton, mPhoton);
-    mesh.photon.position.x = 75;//13.97; //half of length of base
-    mesh.photon.position.y = -8.001;
+    mesh.photon.position.x = 0; //75;13.97; //half of length of base
+    mesh.photon.position.y = 0;//-8.001;
     mesh.photon.position.z = 0;	
     scene.add(mesh.photon);
     oldvector = getVector3(mesh.photon);

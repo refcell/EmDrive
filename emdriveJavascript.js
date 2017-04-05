@@ -111,7 +111,7 @@ function initMesh() {
 		   }
 
 	      } );
-	      objects.push(object);
+	      objects[0] = object;
 	      object.scale.x = object.scale.y = object.scale.z = 5; 
 	      scene.add(object);
 	});

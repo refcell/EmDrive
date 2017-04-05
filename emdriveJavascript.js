@@ -111,9 +111,9 @@ function initMesh() {
 		   }
 
 	      } );
-	      emdrivemesh[0] = object;
 	      object.scale.x = object.scale.y = object.scale.z = 5; 
 	      scene.add(object);
+	      emdrivemesh[0] = object;
 	});
     var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));

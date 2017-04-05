@@ -117,11 +117,11 @@ function initMesh() {
 	});
     var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
-	var intersectsUp = raycasterUp.intersectObjects(objects, true);
+	var intersectsUp = raycasterUp.intersectObjects(emdrivemesh[0], true);
 	//faceUp = intersectsUp[0].face;
     var raycasterDown = new THREE.Raycaster();
 	raycasterDown.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -20, 0));
-	var intersectsDown = raycasterDown.intersectObjects(objects, true);
+	var intersectsDown = raycasterDown.intersectObjects(emdrivemesh[0], true);
 	//faceDown = intersectsDown[0].face;
 }
 

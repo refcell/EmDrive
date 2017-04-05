@@ -26,7 +26,7 @@ var point;
 //https://threejs.org/docs/api/core/Raycaster.html
 var raycaster = new THREE.Raycaster();
 var raycaster2 = new THREE.Raycaster();
-var objects = [];
+var emdrivemesh = [];
 
 // constants
 var STAR_COUNT = 1000;
@@ -111,7 +111,7 @@ function initMesh() {
 		   }
 
 	      } );
-	      objects[0] = object;
+	      emdrivemesh[0] = object;
 	      object.scale.x = object.scale.y = object.scale.z = 5; 
 	      scene.add(object);
 	});
@@ -198,20 +198,20 @@ function Intersection(){
 	console.log("2 Intersection Function Called");
 	console.log(oldvector);
 	raycaster.set(mesh.photon.position, new THREE.Vector3(-oldvector.x, -oldvector.y, -oldvector.z));
-	intersects = raycaster.intersectObjects(objects[0], true);
+	intersects = raycaster.intersectObjects(emdrivemesh[0], true);
 	if(intersects.length > 0){
 		console.log("3 intersects.length > 0");
 	        //dist = intersects[0].distance;
 		//intersectionpoint = intersects[0].point;
 		if((intersects[0].face == faceUp) || (intersects[0].face == faceDown)){
 		    raycaster2.set(mesh.photon.position, new THREE.Vector3(0, 0, oldvector.y));
-		    intersects2 = raycaster2.intersectObjects(objects, true);
+		    intersects2 = raycaster2.intersectObjects(emdrivemesh[0], true);
 		    //dist2 = intersects2[0].distance;
 		    y = -y;
 		}
 		else{
 		    raycaster2.set(mesh.photon.position, new THREE.Vector3(oldvector.x, oldvector.z, 0));
-		    intersects2 = raycaster2.intersectObjects(objects, true);
+		    intersects2 = raycaster2.intersectObjects(emdrivemesh[0], true);
 		    //dist2 = intersects2[0].distance;
 		    x = -x;
 		    z = -z;

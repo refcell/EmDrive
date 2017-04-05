@@ -197,7 +197,6 @@ function Intersection(){
 	console.log(oldvector);
 	raycaster.set(new THREE.Vector3((mesh.photon.x + x), (mesh.photon.y + y), (mesh.photon.z + z)), new THREE.Vector3(mesh.photon.x, mesh.photon.y, mesh.photon.z));
 	intersects = raycaster.intersectObjects(emdrivemesh, true);
-	if(intersects.length > 0){
 		console.log("3 intersects.length < 20");
 	        //dist = intersects[0].distance;
 		intersectionpoint = intersects[0].point;
@@ -214,6 +213,7 @@ function Intersection(){
 		    x = -x;
 		    z = -z;
 		}
+	/*if(intersects.length > 0){
 	}
 	else{
 		console.log("The distance is not working!");
@@ -221,7 +221,7 @@ function Intersection(){
 	    y = -y;
 	    z = -z;
 	    dist = -1;
-	}
+	}*/
 };
 
     /**

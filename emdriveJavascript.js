@@ -29,7 +29,7 @@ var point;
 //https://threejs.org/docs/api/core/Raycaster.html
 var raycaster = new THREE.Raycaster();
 var raycaster2 = new THREE.Raycaster();
-var emdrivemesh = [];
+var emdrivemesh;
 
 // constants
 var STAR_COUNT = 1000;
@@ -121,7 +121,7 @@ function initMesh() {
 	      } );
 	      object.scale.x = object.scale.y = object.scale.z = 5; 
 	      scene.add(object);
-	      emdrivemesh[0] = object;
+	      emdrivemesh = object;
 	});
     var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));

@@ -21,9 +21,9 @@ var faceDown;
 var dist = 20;
 var dist2 = 20;
 var oldvector;
-var x = 11;
-var y = 9;
-var z = 14.07125;
+var x = 2;
+var y = 3;
+var z = 4;
 var point;
 //https://threejs.org/docs/#Reference/Core/Raycaster
 //https://threejs.org/docs/api/core/Raycaster.html
@@ -144,7 +144,7 @@ function processSimulation() {
         simulation.steps++;
 	console.log("1processSimulation");
 	Intersection();
-	if(dist > 20){
+	if(dist > 29){
 	    //move photons
 	    oldvector = getVector3(mesh.photon);
 	    mesh.photon.position.x += x;
@@ -159,7 +159,7 @@ function processSimulation() {
 	    mesh.photon.position = intersectionpoint;
 	    createLine(oldvector, newVector);
 	    Intersection();
-	    if(dist > 21)
+	    if(dist > 29)
 	    {
 	        mesh.photon.position.x += x;
             	mesh.photon.position.y += y;

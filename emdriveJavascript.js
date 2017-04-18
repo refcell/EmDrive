@@ -209,6 +209,7 @@ function Intersection(){
 	console.log(emdrivemesh);
 	raycaster.set(new THREE.Vector3((mesh.photon.position.x + x), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), (new THREE.Vector3(mesh.photon.position.x, mesh.photon.position.y, mesh.photon.position.z)).normalize());
 	intersects = raycaster.intersectObjects(emdrivemesh);
+	console.log(intersects);
 	if(intersects.length == 0){
 	    dist = 30;
 	}

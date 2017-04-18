@@ -210,6 +210,7 @@ function Intersection(){
 	intersects = raycaster.intersectObjects(emdrivemesh, true);
 		console.log("3 intersects.length < 20");
 	        //dist = intersects[0].distance;
+		console.log(intersects);
 		console.log(intersects.point);
 		console.log(intersects.distance);
 		intersectionpoint = getVector3(intersects.point);

@@ -1,5 +1,8 @@
 var inst = this;
 var dae;
+var geometry02;
+var material02;
+var cylinder02;
 var object;
 var scene;
 var camera;
@@ -98,6 +101,11 @@ function initMesh() {
         if (calc3dDistance(star) >= STAR_MIN_DISTANCE)
             scene.add(star);
     }
+	geometry02 = new THREE.CylinderGeometry( 20, 100, 100, 1000 );
+	material02 = new THREE.MeshBasicMaterial({color: 0x0000ff});
+	cylinder02 = new THREE.Mesh( geometry02, material02 );
+	scene.addObject( cylinder02 );
+	
     //http://stackoverflow.com/questions/22114224/three-js-raycasting-obj
 	var manager = new THREE.LoadingManager();
 	var loader = new THREE.OBJLoader(manager);

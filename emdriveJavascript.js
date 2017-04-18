@@ -194,6 +194,8 @@ function processSimulation() {
      */
 function Intersection(){
 	console.log("2 Intersection Function Called");
+	console.log(new THREE.Vector3((mesh.photon.position.x + x), (mesh.photon.position.y + y), (mesh.photon.position.z + z)));
+	console.log(new THREE.Vector3((mesh.photon.position.x), (mesh.photon.position.y), (mesh.photon.position.z)));
 	console.log(oldvector);
 	raycaster.set(new THREE.Vector3((mesh.photon.position.x + x), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), new THREE.Vector3(mesh.photon.position.x, mesh.photon.position.y, mesh.photon.position.z));
 	intersects = raycaster.intersectObjects(emdrivemesh, true);

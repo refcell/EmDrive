@@ -352,7 +352,7 @@ function rnd() {
      * This method is called when the simulation renders and it displays the simulation statistics
      */
     function updateStats(html, command, text) {
-        var html2 = command + text + html;
+        var html2 = command + '<p style="color:yellow;">' + text + '</p>' + html;
         document.getElementById('statistics').innerHTML = html2;
     };
     

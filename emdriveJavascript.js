@@ -207,10 +207,11 @@ function Intersection(){
 	console.log(new THREE.Vector3((mesh.photon.position.x), (mesh.photon.position.y), (mesh.photon.position.z)));
 	console.log(oldvector);
 	raycaster.set(new THREE.Vector3((mesh.photon.position.x + x), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), (new THREE.Vector3(mesh.photon.position.x, mesh.photon.position.y, mesh.photon.position.z)).normalize());
-	intersects = raycaster.intersectObjects(emdrivemesh, true);
+	intersects = raycaster.intersectObject(emdrivemesh, true);
 		console.log("3 intersects.length < 20");
 	        //dist = intersects[0].distance;
-		intersectionpoint = getVector3(intersects.point);
+		intersectionpoint = getVector3(intersects[0][1]);
+		console.log(intersectionpoint);
 		if((intersects.face == faceUp) || (intersects.face == faceDown)){
 		    raycaster2.set(new THREE.Vector3(0, 0, (mesh.photon.y + y)), new THREE.Vector3(mesh.photon.x, mesh.photon.y, mesh.photon.z));
 		    intersects2 = raycaster2.intersectObject(emdrivemesh, true);

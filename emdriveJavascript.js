@@ -196,7 +196,7 @@ function Intersection(){
 	console.log("2 Intersection Function Called");
 	console.log(oldvector);
 	raycaster.set(new THREE.Vector3((mesh.photon.x + x), (mesh.photon.y + y), (mesh.photon.z + z)), new THREE.Vector3(mesh.photon.x, mesh.photon.y, mesh.photon.z));
-	intersects = raycaster.intersectObject(emdrivemesh, true);
+	intersects = raycaster.intersectObjects(emdrivemesh, true);
 		console.log("3 intersects.length < 20");
 	        //dist = intersects[0].distance;
 		intersectionpoint = getVector3(intersects.point);

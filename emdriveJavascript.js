@@ -196,20 +196,20 @@ function Intersection(){
 	console.log("2 Intersection Function Called");
 	console.log(oldvector);
 	raycaster.set(new THREE.Vector3((mesh.photon.x + x), (mesh.photon.y + y), (mesh.photon.z + z)), new THREE.Vector3(mesh.photon.x, mesh.photon.y, mesh.photon.z));
-	intersects = raycaster.intersectObjects(emdrivemesh, true);
+	intersects = raycaster.intersectObject(emdrivemesh, true);
 		console.log("3 intersects.length < 20");
 	        //dist = intersects[0].distance;
-		intersectionpoint = getVector3(intersects[0].point);
-		if((intersects[0].face == faceUp) || (intersects[0].face == faceDown)){
+		intersectionpoint = getVector3(intersects.point);
+		if((intersects.face == faceUp) || (intersects.face == faceDown)){
 		    raycaster2.set(new THREE.Vector3(0, 0, (mesh.photon.y + y)), new THREE.Vector3(mesh.photon.x, mesh.photon.y, mesh.photon.z));
-		    intersects2 = raycaster2.intersectObjects(emdrivemesh, true);
-		    dist = 20 - intersects2[0].distance;
+		    intersects2 = raycaster2.intersectObject(emdrivemesh, true);
+		    dist = 20 - intersects2.distance;
 		    y = -y;
 		}
 		else{
 		    raycaster2.set(new THREE.Vector3(mesh.photon.x, 0, mesh.photon.z), mesh.photon.position);
-		    intersects2 = raycaster2.intersectObjects(emdrivemesh, true);
-		    dist = 20 - intersects2[0].distance;
+		    intersects2 = raycaster2.intersectObject(emdrivemesh, true);
+		    dist = 20 - intersects2.distance;
 		    x = -x;
 		    z = -z;
 		}

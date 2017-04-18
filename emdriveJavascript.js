@@ -210,7 +210,8 @@ function Intersection(){
 	intersects = raycaster.intersectObjects(emdrivemesh, true);
 		console.log("3 intersects.length < 20");
 	        //dist = intersects[0].distance;
-		intersectionpoint = getVector3(intersects[0][1]);
+		console.log(intersects.point);
+		intersectionpoint = getVector3(intersects.point);
 		console.log(intersectionpoint);
 		if((intersects.face == faceUp) || (intersects.face == faceDown)){
 		    raycaster2.set(new THREE.Vector3(0, 0, (mesh.photon.y + y)), new THREE.Vector3(mesh.photon.x, mesh.photon.y, mesh.photon.z));

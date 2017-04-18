@@ -120,7 +120,7 @@ function initMesh() {
 
 	      } );
 	      object.scale.x = object.scale.y = object.scale.z = 5; 
-	      emdrivemesh[0] = object;
+	      emdrivemesh.push(object);
 		scene.add(object);
 	});
     var raycasterUp = new THREE.Raycaster();
@@ -206,6 +206,7 @@ function Intersection(){
 	console.log(new THREE.Vector3((mesh.photon.position.x + x), (mesh.photon.position.y + y), (mesh.photon.position.z + z)));
 	console.log(new THREE.Vector3((mesh.photon.position.x), (mesh.photon.position.y), (mesh.photon.position.z)));
 	console.log(oldvector);
+	console.log(emdrivemesh);
 	raycaster.set(new THREE.Vector3((mesh.photon.position.x + x), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), (new THREE.Vector3(mesh.photon.position.x, mesh.photon.position.y, mesh.photon.position.z)).normalize());
 	intersects = raycaster.intersectObjects(emdrivemesh);
 		console.log("3 intersects.length < 20");

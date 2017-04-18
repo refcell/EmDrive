@@ -211,6 +211,7 @@ function Intersection(){
 		console.log("3 intersects.length < 20");
 	        //dist = intersects[0].distance;
 		console.log(intersects.point);
+		console.log(intersects.distance);
 		intersectionpoint = getVector3(intersects.point);
 		console.log(intersectionpoint);
 		if((intersects.face == faceUp) || (intersects.face == faceDown)){

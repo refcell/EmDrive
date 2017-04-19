@@ -208,6 +208,7 @@ function Intersection(){
 	console.log(oldvector);
 	console.log(emdrivemesh);
 	raycaster.set(new THREE.Vector3((mesh.photon.position.x + 1000), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), (new THREE.Vector3(mesh.photon.position.x, mesh.photon.position.y, mesh.photon.position.z)).normalize());
+	createLine(new THREE.Vector3((mesh.photon.position.x + 1000), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), new THREE.Vector3((mesh.photon.position.x), (mesh.photon.position.y), (mesh.photon.position.z)));
 	intersects = raycaster.intersectObjects(emdrivemesh, true);
 	console.log(intersects);
 	if(intersects.length == 0){

@@ -106,21 +106,21 @@ function initMesh() {
 	scene.addObject( cylinder02 );*/
 	
     //http://stackoverflow.com/questions/22114224/three-js-raycasting-obj
-	//var manager = new THREE.LoadingManager();
-	var loader = new THREE.OBJLoader();//manager
+	var manager = new THREE.LoadingManager();
+	var loader = new THREE.OBJLoader(manager);
 	loader.load('EmDriveModel.obj', function(object) {
 	      object.traverse( function ( child ) {
 		   if ( child instanceof THREE.Mesh ) {
 			 console.log("instance");
 			 child.geometry.computeFaceNormals();
 			   //depthWrite: false, transparent: true,
-			 child.material = new THREE.MeshBasicMaterial( { color: 0xCC9933, opacity: 0.5} );
+			 child.material = new THREE.MeshBasicMaterial( { color: 0xCC9933, transparent: true, opacity: 0.5} );
 			 child.material.side = THREE.DoubleSided;
 		   }
 
 	      } );
 	      	emdrivemesh.push(object);
-		//object.scale.x = object.scale.y = object.scale.z = 5; 
+		object.scale.x = object.scale.y = object.scale.z = 5; 
 		scene.add(object);
 	});
     var raycasterUp = new THREE.Raycaster();
@@ -207,8 +207,8 @@ function Intersection(){
 	console.log(new THREE.Vector3((mesh.photon.position.x), (mesh.photon.position.y), (mesh.photon.position.z)));
 	console.log(oldvector);
 	console.log(emdrivemesh);
-	raycaster.set(new THREE.Vector3((mesh.photon.position.x + 1000), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), (new THREE.Vector3(mesh.photon.position.x, mesh.photon.position.y, mesh.photon.position.z)).normalize());
-	createLine(new THREE.Vector3((mesh.photon.position.x + 1000), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), new THREE.Vector3((mesh.photon.position.x), (mesh.photon.position.y), (mesh.photon.position.z)));
+	raycaster.set(new THREE.Vector3((mesh.photon.position.x + 50), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), (new THREE.Vector3(mesh.photon.position.x, mesh.photon.position.y, mesh.photon.position.z)).normalize());
+	createLine(new THREE.Vector3((mesh.photon.position.x + 50), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), (new THREE.Vector3((mesh.photon.position.x), (mesh.photon.position.y), (mesh.photon.position.z))).normalize());
 	intersects = raycaster.intersectObjects(emdrivemesh, true);
 	console.log(intersects);
 	if(intersects.length == 0){

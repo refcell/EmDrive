@@ -8,7 +8,6 @@ var scene;
 var camera;
 var controls;
 var renderer;
-var mesh;
 var simulation;
 var scene;
 var mesh; 
@@ -107,8 +106,8 @@ function initMesh() {
 	scene.addObject( cylinder02 );*/
 	
     //http://stackoverflow.com/questions/22114224/three-js-raycasting-obj
-	var manager = new THREE.LoadingManager();
-	var loader = new THREE.OBJLoader(manager);
+	//var manager = new THREE.LoadingManager();
+	var loader = new THREE.OBJLoader();//manager
 	loader.load('EmDriveModel.obj', function(object) {
 	      object.traverse( function ( child ) {
 		   if ( child instanceof THREE.Mesh ) {
@@ -120,11 +119,9 @@ function initMesh() {
 		   }
 
 	      } );
-		var experiment = new THREE.MeshBasicMaterial( { color: 0xCC9933, opacity: 0.5} );
-		var emdrivetest = new THREE.Mesh(object, experiment);
-	      emdrivemesh.push(emdrivetest);
+	      	emdrivemesh.push(object);
 		//object.scale.x = object.scale.y = object.scale.z = 5; 
-		scene.add(emdrivetest);
+		scene.add(object);
 	});
     var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));

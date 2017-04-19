@@ -113,7 +113,7 @@ function initMesh() {
 	      object.traverse( function ( child ) {
 		   if ( child instanceof THREE.Mesh ) {
 			 console.log("instance");
-			 child.computeFaceNormals();
+			 child.geometry.computeFaceNormals();
 			 child.material = new THREE.MeshBasicMaterial( { color: 0xCC9933, depthWrite: false, transparent: true, opacity: 0.5} );
 			 child.material.side = THREE.DoubleSided;
 		   }

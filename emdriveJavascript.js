@@ -120,9 +120,11 @@ function initMesh() {
 		   }
 
 	      } );
-	      emdrivemesh.push(object);
-		object.scale.x = object.scale.y = object.scale.z = 5; 
-		scene.add(object);
+		var experiment = new THREE.MeshBasicMaterial( { color: 0xCC9933, opacity: 0.5} );
+		var emdrivetest = new THREE.Mesh(object, experiment);
+	      emdrivemesh.push(emdrivetest);
+		//object.scale.x = object.scale.y = object.scale.z = 5; 
+		scene.add(emdrivetest);
 	});
     var raycasterUp = new THREE.Raycaster();
 	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));

@@ -120,8 +120,8 @@ function initMesh() {
 		   }
 
 	      } );
-	      object.scale.x = object.scale.y = object.scale.z = 5; 
 	      emdrivemesh.push(object);
+		object.scale.x = object.scale.y = object.scale.z = 5; 
 		scene.add(object);
 	});
     var raycasterUp = new THREE.Raycaster();

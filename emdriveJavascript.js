@@ -20,9 +20,9 @@ var faceDown;
 var dist = 20;
 var dist2 = 20;
 var oldvector;
-var x = 2;
-var y = 3;
-var z = 4;
+var x = .2;
+var y = .3;
+var z = .4;
 var point;
 //https://threejs.org/docs/#Reference/Core/Raycaster
 //https://threejs.org/docs/api/core/Raycaster.html
@@ -120,7 +120,7 @@ function initMesh() {
 
 	      } );
 	      	emdrivemesh.push(object);
-		object.scale.x = object.scale.y = object.scale.z = 20; 
+		//object.scale.x = object.scale.y = object.scale.z = 20; 
 		scene.add(object);
 	});
     var raycasterUp = new THREE.Raycaster();

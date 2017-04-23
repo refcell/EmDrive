@@ -118,6 +118,7 @@ function initMesh() {
     emdrivemesh.push(object);
     object.scale.x = object.scale.y = object.scale.z = 5; 
     scene.add(object);
+    });
     var raycasterUp = new THREE.Raycaster();
     raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
     var intersectsUp = raycasterUp.intersectObjects(emdrivemesh, true);
@@ -126,7 +127,7 @@ function initMesh() {
     raycasterDown.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -20, 0));
     var intersectsDown = raycasterDown.intersectObjects(emdrivemesh, true);
     faceDown = intersectsDown[0].face;
-});
+}
 
 //-----------------------------Photon Movement and propagation-------------------------------------------------------------
 

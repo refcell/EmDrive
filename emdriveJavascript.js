@@ -3,6 +3,8 @@ var dae;
 var geometry02;
 var material02;
 var cylinder02;
+var intersectionTopCount;
+var intersectionBottomCount;
 var object;
 var scene;
 var camera;
@@ -81,8 +83,8 @@ function initMesh() {
     var gPhoton = new THREE.SphereGeometry(5, 8, 6);
     var mPhoton = new THREE.MeshBasicMaterial({ color: 0x2E66FF });
     mesh.photon = new THREE.Mesh(gPhoton, mPhoton);
-    mesh.photon.position.x = 0; //75;13.97; //half of length of base
-    mesh.photon.position.y = 0;//-8.001;
+    mesh.photon.position.x = 0;
+    mesh.photon.position.y = 0;
     mesh.photon.position.z = 0;	
     scene.add(mesh.photon);
     oldvector = getVector3(mesh.photon);
@@ -100,44 +102,36 @@ function initMesh() {
         if (calc3dDistance(star) >= STAR_MIN_DISTANCE)
             scene.add(star);
     }
-	/*geometry02 = new THREE.CylinderGeometry( 20, 100, 100, 1000 );
-	material02 = new THREE.MeshBasicMaterial({color: 0x0000ff});
-	cylinder02 = new THREE.Mesh( geometry02, material02 );
-	scene.addObject( cylinder02 );*/
 	
-    //http://stackoverflow.com/questions/22114224/three-js-raycasting-obj
-	var manager = new THREE.LoadingManager();
-	var loader = new THREE.OBJLoader(manager);
-	loader.load('EmDriveModel.obj', function(object) {
-	      object.traverse( function ( child ) {
-		   if ( child instanceof THREE.Mesh ) {
-			 console.log("instance");
-			 child.geometry.computeFaceNormals();
-			   //depthWrite: false, transparent: true,
-			 child.material = new THREE.MeshBasicMaterial( { color: 0xCC9933, transparent: true, opacity: 0.5} );
-			 child.material.side = THREE.DoubleSided;
-		   }
+    var manager = new THREE.LoadingManager();
+    var loader = new THREE.OBJLoader(manager);
+    loader.load('EmDriveModel.obj', function(object) {
+    object.traverse( function ( child ) {
+	if ( child instanceof THREE.Mesh ) {
+		console.log("instance");
+		child.geometry.computeFaceNormals();
+		child.material = new THREE.MeshBasicMaterial( { color: 0xCC9933, transparent: true, opacity: 0.5} );
+		child.material.side = THREE.DoubleSided;
+	}
 
-	      } );
-	      	emdrivemesh.push(object);
-		object.scale.x = object.scale.y = object.scale.z = 5; 
-		scene.add(object);
-	});
+    } );
+    emdrivemesh.push(object);
+    object.scale.x = object.scale.y = object.scale.z = 5; 
+    scene.add(object);
     var raycasterUp = new THREE.Raycaster();
-	raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
-	var intersectsUp = raycasterUp.intersectObjects(emdrivemesh, true);
-	//faceUp = intersectsUp[0].face;
+    raycasterUp.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 20, 0));
+    var intersectsUp = raycasterUp.intersectObjects(emdrivemesh, true);
+    faceUp = intersectsUp[0].face;
     var raycasterDown = new THREE.Raycaster();
-	raycasterDown.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -20, 0));
-	var intersectsDown = raycasterDown.intersectObjects(emdrivemesh, true);
-	//faceDown = intersectsDown[0].face;
-}
+    raycasterDown.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -20, 0));
+    var intersectsDown = raycasterDown.intersectObjects(emdrivemesh, true);
+    faceDown = intersectsDown[0].face;
+});
 
 //-----------------------------Photon Movement and propagation-------------------------------------------------------------
 
 /**
 * Process Simulation Frame
-*setTimeout(,5000);
 * This method proceeds one step of the simulation (60 steps will make 1 second on scene).
 */
 function processSimulation() {
@@ -166,11 +160,6 @@ function processSimulation() {
             	mesh.photon.position.z += z;
 		createLine(oldvector, newVector);
 	    }
-	    else if(dist == -1) {
-		mesh.photon.position.x += x;
-            	mesh.photon.position.y += y;
-            	mesh.photon.position.z += z;
-	    }
 	    else{
 		oldvector = getVector3(mesh.photon);
 	    	mesh.photon.position = intersectionpoint;
@@ -180,54 +169,30 @@ function processSimulation() {
             	mesh.photon.position.y += y;
             	mesh.photon.position.z += z;
 	    }
-	    /*var theta = Math.tan(y/Math.sqrt(Math.pow(x) + Math.pow(z)));
-	    y = Math.cos(theta) * dist;
-	    var theta2 = Math.tan(z/x);
-	    x = Math.cos(theta2) * (Math.sin(theta) * dist);
-	    z = Math.sin(theta2) * (Math.sin(theta) * dist);
-	    
-	    var newVector = getVector3(mesh.photon); // get new position
-            createLine(oldVector, newVector);*/
-		
-	    //test for corner condition
 	}
 	coordinate = 'X:' + mesh.photon.position.x + ' Y:' + mesh.photon.position.y + ' Z:' + mesh.photon.position.z;
-        dist = calc3dDistance(mesh.photon);
-	console.log(dist);
     };
-
-    /**
-     * Calculate Intersection with emdrive or not
-     *https://gist.github.com/nickjanssen/de388ae1090a16bb43ce
-     */
+	
 function Intersection(){
-	//.set ( origin, direction )
-	console.log("2 Intersection Function Called");
-	console.log(new THREE.Vector3((mesh.photon.position.x + x), (mesh.photon.position.y + y), (mesh.photon.position.z + z)));
-	console.log(new THREE.Vector3((mesh.photon.position.x), (mesh.photon.position.y), (mesh.photon.position.z)));
-	console.log(oldvector);
-	console.log(emdrivemesh);
 	raycaster.set(new THREE.Vector3((mesh.photon.position.x), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), (new THREE.Vector3(mesh.photon.position.x, mesh.photon.position.y, mesh.photon.position.z)).normalize());
 	createLine(new THREE.Vector3((mesh.photon.position.x), (mesh.photon.position.y + y), (mesh.photon.position.z + z)), (new THREE.Vector3((mesh.photon.position.x), (mesh.photon.position.y), (mesh.photon.position.z))).normalize());
 	intersects = raycaster.intersectObjects(emdrivemesh, true);
-	console.log(intersects);
 	if(intersects.length == 0){
 	    dist = 30;
 	}
 	else if(intersects.length > 0)
 	{
-		console.log("3 intersects.length < 20");
-	        //dist = intersects[0].distance;
-		console.log(intersects);
-		console.log(intersects.point);
-		console.log(intersects.distance);
+	        dist = intersects.distance;
 		intersectionpoint = getVector3(intersects.point);
-		console.log(intersectionpoint);
 		if((intersects.face == faceUp) || (intersects.face == faceDown)){
 		    raycaster2.set(new THREE.Vector3(0, 0, (mesh.photon.y + y)), new THREE.Vector3(mesh.photon.x, mesh.photon.y, mesh.photon.z));
 		    intersects2 = raycaster2.intersectObject(emdrivemesh, true);
 		    dist = 20 - intersects2.distance;
 		    y = -y;
+		    if(intersects.face == faceUp)
+			    intersectsTopCount += 1;
+		    if(intersects.face == faceDown)
+			    intersectsBottomCount += 1;
 		}
 		else{
 		    raycaster2.set(new THREE.Vector3(mesh.photon.x, 0, mesh.photon.z), mesh.photon.position);
@@ -294,8 +259,6 @@ function render() {
 		coordinate = processSimulation();
 		var command = '<p style="color:purple;">Photon Moved</p>';
 		updateStats(document.getElementById('statistics').innerHTML, command, coordinate);
-		//simulation.isActive = false;
-		//setTimeout(simulationActive(), 5000);
 	}
 	renderer.render(scene, camera); 
     };

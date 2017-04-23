@@ -1,3 +1,10 @@
+/*geometry02 = new THREE.CylinderGeometry( 20, 100, 100, 1000 );
+	material02 = new THREE.MeshBasicMaterial({color: 0x0000ff});
+	cylinder02 = new THREE.Mesh( geometry02, material02 );
+	scene.addObject( cylinder02 );*/
+
+//----------------------------------------------------
+
 /*var loader = new THREE.JSONLoader();
 loader.load('EmDriveModel2.json', function(geometry, materials) {
       mesh8 = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials));

@@ -256,7 +256,9 @@ function createLine(oldVector, newVector) {
 function render() {
 	requestAnimationFrame(render);
 	if (simulation.isActive) {
-		coordinate = processSimulation();
+		intersectionTopCount += Math.floor(Math.random() * (5 - 2 + 1)) + 2;
+		intersectionBottomCount += Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+		coordinate = 'Count Top:' + intersectionTopCount + 'Count Bottom:' intersectionBottomCount;//processSimulation();
 		var command = '<p style="color:purple;">Photon Moved</p>';
 		updateStats(document.getElementById('statistics').innerHTML, command, coordinate);
 	}

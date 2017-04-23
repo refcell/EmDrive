@@ -135,7 +135,7 @@ function initMesh() {
 * Process Simulation Frame
 * This method proceeds one step of the simulation (60 steps will make 1 second on scene).
 */
-function processSimulation() {
+/*function processSimulation() {
         simulation.steps++;
 	console.log("1processSimulation");
 	Intersection();
@@ -207,7 +207,7 @@ function Intersection(){
 	{
 	    console.log("ERROR");
 	}
-};
+};*/
 
     /**
      * Calculate 3D From Scene Center Point(0, 0, 0)

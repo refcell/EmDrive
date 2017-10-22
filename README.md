@@ -1,8 +1,6 @@
 # EmDrive
 3D Simulation of the EmDrive
 <br />
-https://abigger87.github.io/EmDrive/index.html
-<br />
 http://emdrive.wiki/Main_Page
 <br />
 Based on the dimensions given in the jpg file labeled EmdriveDimensions.jpg
@@ -31,3 +29,4 @@ http://www.theoryofabsolutes.com/photonreflectionindepth.html
 <br />
 The interaction of photons with each other is assumed to be next to nothing in this simulation.
 <br />
+https://abigger87.github.io/EmDrive/index.html
